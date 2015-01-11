@@ -1,6 +1,7 @@
 # io-oculus
 Nim bindings for the Oculus VR SDK.
 
+![io-spacenav Logo](logo.png)
 
 ## About
 
@@ -14,11 +15,11 @@ tracking devices, such as the Rift, DK1, DK2 and GearVR.
 io-oculus is still under heavy development and does not work yet!
 
 
-## Prerequistes
+## Prerequisites
 
 To compile the bindings in this package you must have **libovr**, the Oculus VR
 SDK library, installed on your computer. Users of your program also need to
-install and configure the Oculus drivers.
+install the device drivers, which can be downloaded from the Oculus web site.
 
 ### Linux
 
