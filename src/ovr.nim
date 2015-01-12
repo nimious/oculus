@@ -11,7 +11,24 @@
 # for licensing details. Pull requests for fixes or improvements are encouraged.
 #
 
+{.deadCodeElim: on.}
+
+
+when defined(windows):
+  when defined(win64):
+    when defined(debug):
+      const dllname = "libovr64d.dll"
+    else:
+      const dllname = "libovr64.dll"
+  else:
+    when defined(debug):
+      const dllname = "libovrd.dll"
+    else:
+      const dllname = "libovr.dll"
+else:
+  {.error: "Platform does not support libovr".}
+
+
 include
   ovrcapi,
-  ovrversion,
-  kernel/ovrmath
+  ovrversion

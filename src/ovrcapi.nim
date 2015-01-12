@@ -54,7 +54,7 @@ type
     y*: cfloat
     z*: cfloat
 
-  ovrMatrix4f* = object } ;
+  ovrMatrix4f* = object
     ## A 4x4 matrix with float elements.
     M*: array[4, array[4, cfloat]]
 
@@ -65,104 +65,101 @@ type
 
   ovrPoseStatef* = object
     ## A full pose (rigid body) configuration with first and second derivatives.
-    ThePose*: ovrPosef                                  ## The body's position and orientation.
-    AngularVelocity*: ovrVector3f                       ## The body's angular velocity in radians per second.
-    LinearVelocity*: ovrVector3f                        ## The body's velocity in meters per second.
-    AngularAcceleration*: ovrVector3f                   ## The body's angular acceleration in radians per second per second.
-    LinearAcceleration*: ovrVector3f                    ## The body's acceleration in meters per second per second.
-    TimeInSeconds*: cdouble;                            ## Absolute time of this state sample.
+    ThePose*: ovrPosef                                                                            ## The body's position and orientation.
+    AngularVelocity*: ovrVector3f                                                         ## The body's angular velocity in radians per second.
+    LinearVelocity*: ovrVector3f                                                           ## The body's velocity in meters per second.
+    AngularAcceleration*: ovrVector3f                                                  ## The body's angular acceleration in radians per second per second.
+    LinearAcceleration*: ovrVector3f                                                    ## The body's acceleration in meters per second per second.
+    TimeInSeconds*: cdouble                                                                   ## Absolute time of this state sample.
 
   ovrFovPort* = object
-    ## Field Of View (FOV) in tangent of the angle units.
-    ## As an example, for a standard 90 degree vertical FOV, we would
-    ## have: { UpTan = tan(90 degrees / 2), DownTan = tan(90 degrees / 2) }.
-    UpTan*: cfloat                                      ## The tangent of the angle between the viewing vector
-                                                        ## and the top edge of the field of view.
-    DownTan*: cfloat                                    ## The tangent of the angle between the viewing vector
-                                                        ## and the bottom edge of the field of view.
-    LeftTan*: cfloat                                    ## The tangent of the angle between the viewing vector
-                                                        ## and the left edge of the field of view.
-    RightTan*: cfloat                                   ## The tangent of the angle between the viewing vector
-                                                        ## and the right edge of the field of view.
+    ## Field Of View (FOV) in tangent of the angle units. As an example, for a standard 90 degree
+    ## vertical FOV, we would have: { UpTan = tan(90 degrees / 2), DownTan = tan(90 degrees / 2) }.
+    UpTan*: cfloat        ## The tangent of the angle between the viewing vector and the top edge of the field of view.
+    DownTan*: cfloat     ## The tangent of the angle between the viewing vector and the bottom edge of the field of view.
+    LeftTan*: cfloat     ## The tangent of the angle between the viewing vector and the left edge of the field of view.
+    RightTan*: cfloat   ## The tangent of the angle between the viewing vector and the right edge of the field of view.
 
 
 # HMD Types ####################################################################
 
 type
+  ## Enumerates all HMD types that we support.
   ovrHmdType* {.size: sizeof(cint).} = enum
-    ## Enumerates all HMD types that we support.
-    ovrHmd_None = 0,
-    ovrHmd_DK1 = 3,
-    ovrHmd_DKHD = 4,
-    ovrHmd_DK2 = 6,
-    ovrHmd_Other        # Some HMD other then the one in the enumeration.
+    ovrHmd_None = 0,                                                                                ## No device type.
+    ovrHmd_DK1 = 3,                                                                                  ## Oculus DevKit 1.
+    ovrHmd_DKHD = 4,                                                                                ## Oculus DevKit HD.
+    ovrHmd_DK2 = 6,                                                                                  ## Oculus DevKit 2.
+    ovrHmd_Other                                                                                      ## Unspecified device type.
 
-type
-  ovrHmdCaps* {.size: sizeof(cint).} = enum
-    ## HMD capability bits reported by device.
 
-    # Read-only flags.
-    ovrHmdCap_Present = 0x00000001,                     ## The HMD is plugged in and detected by the system.
-    ovrHmdCap_Available = 0x00000002,                   ## The HMD and its sensor are available for ownership use.
-                                                        ## i.e. it is not already owned by another application.
-    ovrHmdCap_Captured = 0x00000004,                    ## Set to 'true' if we captured ownership of this HMD.
+# HMD Capability Bits ##########################################################
 
-    # These flags are intended for use with the new driver display mode.
-    ovrHmdCap_ExtendDesktop = 0x00000008,               ## (read only) Means the display driver is in compatibility mode.
+# Read-only flags.
+const
+  ovrHmdCap_Present*: cuint = 0x00000001                                                ## The HMD is plugged in and detected by the system.
+  ovrHmdCap_Available*: cuint = 0x00000002                                             ## The HMD and its sensor are available for ownership use, i.e. it is not already owned by another application.
+  ovrHmdCap_Captured*: cuint = 0x00000004                                                ## Set to 'true' if we captured ownership of this HMD.
 
-    # Modifiable flags (through ovrHmd_SetEnabledCaps).
-    ovrHmdCap_DisplayOff = 0x00000040,                  ## Turns off HMD screen and output (only if 'ExtendDesktop' is off).
-    ovrHmdCap_LowPersistence = 0x00000080,              ## HMD supports low persistence mode.
-    ovrHmdCap_DynamicPrediction = 0x00000200,           ## Adjust prediction dynamically based on internally measured latency.
-    ovrHmdCap_DirectPentile = 0x00000400,               ## Write directly in pentile color mapping format
-    ovrHmdCap_NoVSync = 0x00001000,                     ## Support rendering without VSync for debugging.
-    ovrHmdCap_NoMirrorToWindow = 0x00002000,            ## Disables mirroring of HMD output to the window. This may improve
-                                                        ## rendering performance slightly (only if 'ExtendDesktop' is off).
+  # These flags are intended for use with the new driver display mode.
+  ovrHmdCap_ExtendDesktop*: cuint = 0x00000008                                      ## (read only) Means the display driver is in compatibility mode.
 
-    # These flags are currently passed into the service. May change without notice.
-    ovrHmdCap_Service_Mask = 0x000022F0,
+  # Modifiable flags (through ovrHmd_SetEnabledCaps).
+  ovrHmdCap_DisplayOff*: cuint = 0x00000040                                            ## Turns off HMD screen and output (only if 'ExtendDesktop' is off).
+  ovrHmdCap_LowPersistence*: cuint = 0x00000080                                     ## HMD supports low persistence mode.
+  ovrHmdCap_DynamicPrediction*: cuint = 0x00000200                                ## Adjust prediction dynamically based on internally measured latency.
+  ovrHmdCap_DirectPentile*: cuint = 0x00000400                                       ## Write directly in pentile color mapping format
+  ovrHmdCap_NoVSync*: cuint = 0x00001000                                                 ## Support rendering without VSync for debugging.
+  ovrHmdCap_NoMirrorToWindow*: cuint = 0x00002000                                  ## Disables mirroring of HMD output to the window. This may improve rendering performance slightly (only if 'ExtendDesktop' is off).
+  ovrHmdCap_Service_Mask*: cuint = 0x000022F0                                         ## These flags are currently passed into the service. May change without notice.
+  ovrHmdCap_Writable_Mask*: cuint = 0x000032F0                                       ## These bits can be modified by ovrHmd_SetEnabledCaps.
 
-    # These bits can be modified by ovrHmd_SetEnabledCaps.
-    ovrHmdCap_Writable_Mask = 0x000032F0
 
-type
-  ovrTrackingCaps* {.size: sizeof(cint).} = enum
-    ## Tracking capability bits reported by the device.
-    ## Used with ovrHmd_ConfigureTracking.
-    ovrTrackingCap_Orientation = 0x00000010,            ## Supports orientation tracking (IMU).
-    ovrTrackingCap_MagYawCorrection = 0x00000020,       ## Supports yaw drift correction via a magnetometer or other means.
-    ovrTrackingCap_Position = 0x00000040,               ## Supports positional tracking.
-    ovrTrackingCap_Idle = 0x00000100                    ## Overrides the other flags. Indicates that the application
-                                                        ## doesn't care about tracking settings. This is the internal
-                                                        ## default before ovrHmd_ConfigureTracking is called.
+# Tracking Capability Bits #####################################################
 
-type 
-  ovrDistortionCaps* {.size: sizeof(cint).} = enum
-    ## Distortion capability bits reported by device.
-    ## Used with ovrHmd_ConfigureRendering and ovrHmd_CreateDistortionMesh.
-    ovrDistortionCap_Chromatic = 0x00000001,            ## Supports chromatic aberration correction.
-    ovrDistortionCap_TimeWarp = 0x00000002,             ## Supports timewarp.
-    # 0x04 unused
-    ovrDistortionCap_Vignette = 0x00000008,             ## Supports vignetting around the edges of the view.
-    ovrDistortionCap_NoRestore = 0x00000010,            ## Do not save and restore the graphics and compute state when rendering distortion.
-    ovrDistortionCap_FlipInput = 0x00000020,            ## Flip the vertical texture coordinate of input images.
-    ovrDistortionCap_SRGB = 0x00000040,                 ## Assume input images are in sRGB gamma-corrected color space.
-    ovrDistortionCap_Overdrive = 0x00000080,            ## Overdrive brightness transitions to reduce artifacts on DK2+ displays
-    ovrDistortionCap_HqDistortion = 0x00000100,         ## High-quality sampling of distortion buffer for anti-aliasing
-    ovrDistortionCap_LinuxDevFullscreen = 0x00000200,   ## Indicates window is fullscreen on a device when set. The SDK will automatically apply distortion mesh rotation if needed.
-    ovrDistortionCap_ComputeShader = 0x00000400,        ## Using compute shader (DX11+ only)
-    ovrDistortionCap_ProfileNoTimewarpSpinWaits = 0x00010000 ## Use when profiling with timewarp to remove false positives
+# Tracking capability bits reported by the device.
+# Used with ovrHmd_ConfigureTracking.
+const
+  ovrTrackingCap_Orientation*: cuint = 0x00000010                               ## Supports orientation tracking (IMU).
+  ovrTrackingCap_MagYawCorrection*: cuint = 0x00000020                      ## Supports yaw drift correction via a magnetometer or other means.
+  ovrTrackingCap_Position*: cuint = 0x00000040                                    ## Supports positional tracking.
+  ovrTrackingCap_Idle*: cuint = 0x00000100                                           ## Overrides the other flags. Indicates that the application
+                                                                                                                 ## doesn't care about tracking settings. This is the internal
+                                                                                                                 ## default before ovrHmd_ConfigureTracking is called.
+
+
+# Distortion Capability Bits ###################################################
+
+# Used with ovrHmd_ConfigureRendering and ovrHmd_CreateDistortionMesh.
+const
+  ovrDistortionCap_Chromatic*: cuint = 0x00000001                               ## Supports chromatic aberration correction.
+  ovrDistortionCap_TimeWarp*: cuint = 0x00000002                                 ## Supports timewarp.
+  ovrDistortionCap_Vignette*: cuint = 0x00000008                                 ## Supports vignetting around the edges of the view.
+  ovrDistortionCap_NoRestore*: cuint = 0x00000010                               ## Do not save and restore the graphics and compute state when rendering distortion.
+  ovrDistortionCap_FlipInput*: cuint = 0x00000020                               ## Flip the vertical texture coordinate of input images.
+  ovrDistortionCap_SRGB*: cuint = 0x00000040                                        ## Assume input images are in sRGB gamma-corrected color space.
+  ovrDistortionCap_Overdrive*: cuint = 0x00000080                               ## Overdrive brightness transitions to reduce artifacts on DK2+ displays
+  ovrDistortionCap_HqDistortion*: cuint = 0x00000100                          ## High-quality sampling of distortion buffer for anti-aliasing
+  ovrDistortionCap_LinuxDevFullscreen*: cuint = 0x00000200               ## Indicates window is fullscreen on a device when set. The SDK will automatically apply distortion mesh rotation if needed.
+  ovrDistortionCap_ComputeShader*: cuint = 0x00000400                        ## Using compute shader (DX11+ only)
+  ovrDistortionCap_ProfileNoTimewarpSpinWaits*: cuint = 0x00010000  ## Use when profiling with timewarp to remove false positives
+
+
+# Distortion Capability Bits ###################################################
 
 type 
-  ovrEyeType* {.size: sizeof(cint).} = enum 
-    ## Specifies which eye is being used for rendering.
-    ## This type explicitly does not include a third "NoStereo" option, as such is
-    ## not required for an HMD-centered API.
+  ## Specifies which eye is being used for rendering.
+  ## This type explicitly does not include a third "NoStereo" option, as such is
+  ## not required for an HMD-centered API.
+  ovrEyeType* {.size: sizeof(cint).} = enum
     ovrEye_Left = 0,
     ovrEye_Right = 1,
     ovrEye_Count = 2
 
-type 
+type
+  ovrHmdStruct* = object
+    ## Dummy object for internal HMD handles.
+
   ovrHmdDesc* = object 
     ## This is a complete descriptor of the HMD.
     Handle*: ptr ovrHmdStruct                           ## Internal handle of this HMD.
@@ -181,22 +178,21 @@ type
     HmdCaps*: cuint                                     ## Capability bits described by ovrHmdCaps.
     TrackingCaps*: cuint                                ## Capability bits described by ovrTrackingCaps.
     DistortionCaps*: cuint                              ## Capability bits described by ovrDistortionCaps.
-    DefaultEyeFov*: array[ovrEye_Count, ovrFovPort]     ## Recommended optical FOVs for the HMD.
-    MaxEyeFov*: array[ovrEye_Count, ovrFovPort]         ## Maximum optical FOVs for the HMD.
-    EyeRenderOrder*: array[ovrEye_Count, ovrEyeType]    ## Preferred eye rendering order for best performance.
-                                                        ## Can help reduce latency on sideways-scanned screens.
-    Resolution*: ovrSizei                               ## Resolution of the full HMD screen (both eyes) in pixels.
-    WindowsPos*: ovrVector2i                            ## Location of the application window on the desktop (or 0,0).
-    DisplayDeviceName*: cstring                         ## Display that the HMD should present on.
-    DisplayId*: cint                                    ## Display identifier (MacOS only).
+    DefaultEyeFov*: array[ovrEye_Count, ovrFovPort]    ## Recommended optical FOVs for the HMD.
+    MaxEyeFov*: array[ovrEye_Count, ovrFovPort]           ## Maximum optical FOVs for the HMD.
+    EyeRenderOrder*: array[ovrEye_Count, ovrEyeType]  ## Preferred eye rendering order for best performance. Can help reduce latency on sideways-scanned screens.
+    Resolution*: ovrSizei                                                 ## Resolution of the full HMD screen (both eyes) in pixels.
+    WindowsPos*: ovrVector2i                                            ## Location of the application window on the desktop (or 0,0).
+    DisplayDeviceName*: cstring                                       ## Display that the HMD should present on.
+    DisplayId*: cint                                                          ## Display identifier (MacOS only).
 
 type 
   ovrHmd* = ptr ovrHmdDesc
     ## Simple type ovrHmd is used in ovrHmd_* calls.
 
 type 
+  ## Bit flags describing the current status of sensor tracking.
   ovrStatusBits* {.size: sizeof(cint).} = enum
-    ## Bit flags describing the current status of sensor tracking.
     ovrStatus_OrientationTracked = 0x00000001,  ## Orientation is currently tracked (connected and in use).
     ovrStatus_PositionTracked = 0x00000002,     ## Position is currently tracked (false if out of range).
     ovrStatus_CameraPoseTracked = 0x00000004,   ## Camera pose is currently tracked.
@@ -233,7 +229,7 @@ type
 
     # 0.4.3
     LastVisionFrameLatency*: cdouble    ## Measures the time from exposure until the pose is available for the frame, including processing time.
-    LastCameraFrameCounter*: uint32_t   ## Tag the vision processing results to a certain frame counter number.
+    LastCameraFrameCounter*: cuint   ## Tag the vision processing results to a certain frame counter number.
 
 
 type 
@@ -302,7 +298,7 @@ type                        #OVR_ALIGNAS(8)
   ovrRenderAPIConfig* = object 
     ## Contains platform-specific information for rendering.
     Header*: ovrRenderAPIConfigHeader
-    PlatformData*: array[8, uintptr_t]
+    PlatformData*: array[8, ptr cuint]
 
 type                        #OVR_ALIGNAS(8)
   ovrTextureHeader* = object 
@@ -312,13 +308,13 @@ type                        #OVR_ALIGNAS(8)
     API*: ovrRenderAPIType
     TextureSize*: ovrSizei
     RenderViewport*: ovrRecti # Pixel viewport in texture that holds eye image.
-    _PAD0_*: uint32_t
+    PAD0*: cuint
 
 type                        #OVR_ALIGNAS(8)
   ovrTexture* = object 
     # Contains platform-specific information about a texture.
     Header*: ovrTextureHeader
-    PlatformData*: array[8, uintptr_t]
+    PlatformData*: array[8, ptr cuint]
 
 
 # API Interfaces ###############################################################
@@ -348,7 +344,7 @@ type                        #OVR_ALIGNAS(8)
 #  * ovrHmd_Destroy(hmd)
 #  * ovr_Shutdown()
 
-proc ovr_InitializeRenderingShim*(): ovrBool
+proc ovr_InitializeRenderingShim*(): ovrBool {.cdecl, dynlib: dllname, importc: "ovr_InitializeRenderingShim".}
   ## Initializes the rendering shim appart from everything else in LibOVR. This
   ## may be helpful if the application prefers to avoid creating any OVR
   ## resources (allocations, service connections, etc) at this point. Does not
@@ -360,44 +356,44 @@ proc ovr_InitializeRenderingShim*(): ovrBool
   ## (creation devices, etc). ovr_Initialize() must still be called after to use
   ## the rest of LibOVR APIs.
 
-proc ovr_Initialize*(): ovrBool
+proc ovr_Initialize*(): ovrBool {.cdecl, dynlib: dllname, importc: "ovr_Initialize".}
   ## Library init/shutdown, must be called around all other OVR code. No other
   ## functions calls besides ovr_InitializeRenderingShim are allowed before
   ## ovr_Initialize succeeds or after ovr_Shutdown. Initializes all Oculus
   ## functionality.
 
-proc ovr_Shutdown*()
+proc ovr_Shutdown*() {.cdecl, dynlib: dllname, importc: "ovr_Shutdown".}
   ## Shuts down all Oculus functionality.
 
-proc ovr_GetVersionString*(): cstring
+proc ovr_GetVersionString*(): cstring {.cdecl, dynlib: dllname, importc: "ovr_GetVersionString".}
   ## Returns version string representing libOVR version. Static, so string
   ## remains valid for app lifespan.
 
-proc ovrHmd_Detect*(): cint
+proc ovrHmd_Detect*(): cint {.cdecl, dynlib: dllname, importc: "ovrHmd_Detect".}
   ## Detects or re-detects HMDs and reports the total number detected. Users can
   ## get information about each HMD by calling ovrHmd_Create with an index.
 
-proc ovrHmd_Create*(index: cint): ovrHmd
+proc ovrHmd_Create*(index: cint): ovrHmd {.cdecl, dynlib: dllname, importc: "ovrHmd_Create".}
   ## Creates a handle to an HMD which doubles as a description structure. Index
   ## can be [0..(ovrHmd_Detect() - 1)]. Index mappings can cange after each
   ## ovrHmd_Detect call. If not null, then the returned handle must be freed
   ## with ovrHmd_Destroy.
 
-proc ovrHmd_Destroy*(hmd: ovrHmd)
+proc ovrHmd_Destroy*(hmd: ovrHmd) {.cdecl, dynlib: dllname, importc: "ovrHmd_Destroy".}
   ## Destroys a handle to an HMD.
 
-proc ovrHmd_CreateDebug*(`type`: ovrHmdType): ovrHmd
+proc ovrHmd_CreateDebug*(`type`: ovrHmdType): ovrHmd {.cdecl, dynlib: dllname, importc: "ovrHmd_CreateDebug".}
   ## Creates a 'fake' HMD used for debugging only. This is not tied to specific
   ## hardware, but may be used to debug some of the related rendering.
 
-proc ovrHmd_GetLastError*(hmd: ovrHmd): cstring
+proc ovrHmd_GetLastError*(hmd: ovrHmd): cstring {.cdecl, dynlib: dllname, importc: "ovrHmd_GetLastError".}
   ## Returns last error for HMD state. Returns null for no error. String is
   ## valid until next call or GetLastError or HMD is destroyed. Pass null hmd to
   ## get global errors (during create etc).
 
 proc ovrHmd_AttachToWindow*(hmd: ovrHmd; window: pointer;
                             destMirrorRect: ptr ovrRecti;
-                            sourceRenderTargetRect: ptr ovrRecti): ovrBool
+                            sourceRenderTargetRect: ptr ovrRecti): ovrBool {.cdecl, dynlib: dllname, importc: "ovrHmd_AttachToWindow".}
   ## Platform specific function to specify the application window whose output
   ## will be displayed on the HMD. Only used if the ovrHmdCap_ExtendDesktop flag
   ## is false.
@@ -409,14 +405,13 @@ proc ovrHmd_AttachToWindow*(hmd: ovrHmd; window: pointer;
   ##
   ## Note: Source and dest mirror rects are not yet implemented.
 
-proc ovrHmd_GetEnabledCaps*(hmd: ovrHmd): cuint
+proc ovrHmd_GetEnabledCaps*(hmd: ovrHmd): cuint {.cdecl, dynlib: dllname, importc: "ovrHmd_GetEnabledCaps".}
   ## Returns capability bits that are enabled at this time as described by
-  ## ovrHmdCaps. Note that this value is different font ovrHmdDesc::HmdCaps,
+  ## ovrHmdCap_XXX. Note that this value is different font ovrHmdDesc.HmdCaps,
   ## which describes what capabilities are available for that HMD.
 
-proc ovrHmd_SetEnabledCaps*(hmd: ovrHmd; hmdCaps: cuint)
-  ## Modifies capability bits described by ovrHmdCaps that can be modified, such
-  ## as ovrHmdCap_LowPersistance.
+proc ovrHmd_SetEnabledCaps*(hmd: ovrHmd; hmdCaps: cuint) {.cdecl, dynlib: dllname, importc: "ovrHmd_SetEnabledCaps".}
+  ## Modifies capability bits described by ovrHmdCap_XXX that can be modified.
 
 
 # Tracking Interface ###########################################################
@@ -425,7 +420,7 @@ proc ovrHmd_SetEnabledCaps*(hmd: ovrHmd; hmdCaps: cuint)
 # be sampled from different threads.
 
 proc ovrHmd_ConfigureTracking*(hmd: ovrHmd; supportedTrackingCaps: cuint;
-                               requiredTrackingCaps: cuint): ovrBool
+                               requiredTrackingCaps: cuint): ovrBool {.cdecl, dynlib: dllname, importc: "ovrHmd_ConfigureTracking".}
   ## ConfigureTracking starts sensor sampling, enabling specified capabilities,
   ## described by ovrTrackingCaps.
   ## - supportedTrackingCaps specifies support that is requested. The function
@@ -439,11 +434,11 @@ proc ovrHmd_ConfigureTracking*(hmd: ovrHmd; supportedTrackingCaps: cuint;
   ## - Pass 0 for both supportedTrackingCaps and requiredTrackingCaps to disable
   ##   tracking.
 
-proc ovrHmd_RecenterPose*(hmd: ovrHmd)
+proc ovrHmd_RecenterPose*(hmd: ovrHmd) {.cdecl, dynlib: dllname, importc: "ovrHmd_RecenterPose".}
   ## Re-centers the sensor orientation. Normally this will recenter the (x,y,z)
   ## translational components and the yaw component of orientation.
 
-proc ovrHmd_GetTrackingState*(hmd: ovrHmd; absTime: cdouble): ovrTrackingState
+proc ovrHmd_GetTrackingState*(hmd: ovrHmd; absTime: cdouble): ovrTrackingState {.cdecl, dynlib: dllname, importc: "ovrHmd_GetTrackingState".}
   ## Returns tracking state reading based on the specified absolute system time.
   ## Pass an absTime value of 0.0 to request the most recent sensor reading. In
   ## this case both PredictedPose and SamplePose will have the same value.
@@ -454,7 +449,7 @@ proc ovrHmd_GetTrackingState*(hmd: ovrHmd; absTime: cdouble): ovrTrackingState
 # Graphics Setup ###############################################################
 
 proc ovrHmd_GetFovTextureSize*(hmd: ovrHmd; eye: ovrEyeType; fov: ovrFovPort;
-                               pixelsPerDisplayPixel: cfloat): ovrSizei
+                               pixelsPerDisplayPixel: cfloat): ovrSizei {.cdecl, dynlib: dllname, importc: "ovrHmd_GetFovTextureSize".}
   ## Calculates the recommended texture size for rendering a given eye within
   ## the HMD with a given FOV cone. Higher FOV will generally require larger
   ## textures to maintain quality.
@@ -488,7 +483,7 @@ proc ovrHmd_ConfigureRendering*(hmd: ovrHmd;
        apiConfig: ptr ovrRenderAPIConfig;
        distortionCaps: cuint;
        eyeFovIn: array[2, ovrFovPort];
-       eyeRenderDescOut: array[2, ovrEyeRenderDesc]): ovrBool
+       eyeRenderDescOut: array[2, ovrEyeRenderDesc]): ovrBool {.cdecl, dynlib: dllname, importc: "ovrHmd_ConfigureRendering".}
   ## Configures rendering and fills in computed render parameters. This function
   ## can be called multiple times to change rendering settings. eyeRenderDescOut
   ## is a pointer to an array of two ovrEyeRenderDesc structs that are used to
@@ -497,13 +492,13 @@ proc ovrHmd_ConfigureRendering*(hmd: ovrHmd;
   ##    to shutdown rendering and release all resources.
   ##  - distortionCaps describe desired distortion settings.
 
-proc ovrHmd_BeginFrame*(hmd: ovrHmd; frameIndex: cuint): ovrFrameTiming
+proc ovrHmd_BeginFrame*(hmd: ovrHmd; frameIndex: cuint): ovrFrameTiming {.cdecl, dynlib: dllname, importc: "ovrHmd_BeginFrame".}
   ## Begins a frame, returning timing information. This should be called at the
   ## beginning of the game rendering loop (on the render thread). Pass 0 for the
   ## frame index if not using ovrHmd_GetFrameTiming.
 
 proc ovrHmd_EndFrame*(hmd: ovrHmd; renderPose: array[2, ovrPosef];
-       eyeTexture: array[2, ovrTexture])
+       eyeTexture: array[2, ovrTexture]) {.cdecl, dynlib: dllname, importc: "ovrHmd_EndFrame".}
   ## Ends a frame, submitting the rendered textures to the frame buffer.
   ## - RenderViewport within each eyeTexture can change per frame if necessary.
   ## - 'renderPose' will typically be the value returned from ovrHmd_GetEyePoses,
@@ -518,7 +513,7 @@ proc ovrHmd_EndFrame*(hmd: ovrHmd; renderPose: array[2, ovrPosef];
 proc ovrHmd_GetEyePoses*(hmd: ovrHmd; frameIndex: cuint;
        hmdToEyeViewOffset: array[2, ovrVector3f];
        outEyePoses: array[2, ovrPosef];
-       outHmdTrackingState: ptr ovrTrackingState)
+       outHmdTrackingState: ptr ovrTrackingState) {.cdecl, dynlib: dllname, importc: "ovrHmd_GetEyePoses".}
   ## Returns predicted head pose in outHmdTrackingState and offset eye poses in
   ## outEyePoses as an atomic operation. Caller need not worry about applying
   ## HmdToEyeViewOffset to the returned outEyePoses variables.
@@ -534,7 +529,7 @@ proc ovrHmd_GetEyePoses*(hmd: ovrHmd; frameIndex: cuint;
   ##   ovrHmd_EndFrame.
   ## - If called doesn't need outHmdTrackingState, it can be NULL
 
-proc ovrHmd_GetHmdPosePerEye*(hmd: ovrHmd; eye: ovrEyeType): ovrPosef
+proc ovrHmd_GetHmdPosePerEye*(hmd: ovrHmd; eye: ovrEyeType): ovrPosef {.cdecl, dynlib: dllname, importc: "ovrHmd_GetHmdPosePerEye".}
   ## Function was previously called ovrHmd_GetEyePose
   ## Returns the predicted head pose to use when rendering the specified eye.
   ## - Important: Caller must apply HmdToEyeViewOffset before using ovrPosef for
@@ -565,7 +560,7 @@ proc ovrHmd_GetHmdPosePerEye*(hmd: ovrHmd; eye: ovrEyeType): ovrPosef
 # followed by ovrHmd_GetEyeTimewarpMatrices to obtain the timewarp matrices used
 # by the distortion pixel shader. This will minimize latency.
 
-proc ovrHmd_GetRenderDesc*(hmd: ovrHmd; eyeType: ovrEyeType; fov: ovrFovPort): ovrEyeRenderDesc
+proc ovrHmd_GetRenderDesc*(hmd: ovrHmd; eyeType: ovrEyeType; fov: ovrFovPort): ovrEyeRenderDesc {.cdecl, dynlib: dllname, importc: "ovrHmd_GetRenderDesc".}
   ## Computes the distortion viewport, view adjust, and other rendering
   ## parameters for the specified eye. This can be used instead of
   ## ovrHmd_ConfigureRendering to do setup for client rendered distortion.
@@ -596,7 +591,7 @@ type
 
 proc ovrHmd_CreateDistortionMesh*(hmd: ovrHmd; eyeType: ovrEyeType;
                                   fov: ovrFovPort; distortionCaps: cuint;
-                                  meshData: ptr ovrDistortionMesh): ovrBool
+                                  meshData: ptr ovrDistortionMesh): ovrBool {.cdecl, dynlib: dllname, importc: "ovrHmd_CreateDistortionMesh".}
   ## Generate distortion mesh per eye. Distortion capabilities will depend on
   ## 'distortionCaps' flags. Users should render using the appropriate shaders
   ## based on their settings. Distortion mesh data will be allocated and written
@@ -611,37 +606,37 @@ proc ovrHmd_CreateDistortionMesh*(hmd: ovrHmd; eyeType: ovrEyeType;
 
 proc ovrHmd_CreateDistortionMeshDebug*(hmddesc: ovrHmd; eyeType: ovrEyeType;
     fov: ovrFovPort; distortionCaps: cuint; meshData: ptr ovrDistortionMesh;
-    debugEyeReliefOverrideInMetres: cfloat): ovrBool
+    debugEyeReliefOverrideInMetres: cfloat): ovrBool {.cdecl, dynlib: dllname, importc: "ovrHmd_CreateDistortionMeshDebug".}
 
-proc ovrHmd_DestroyDistortionMesh*(meshData: ptr ovrDistortionMesh)
+proc ovrHmd_DestroyDistortionMesh*(meshData: ptr ovrDistortionMesh) {.cdecl, dynlib: dllname, importc: "ovrHmd_DestroyDistortionMesh".}
   ## Used to free the distortion mesh allocated by
   ## ovrHmd_GenerateDistortionMesh. meshData elements are set to null and zeroes
   ## after the call.
 
 proc ovrHmd_GetRenderScaleAndOffset*(fov: ovrFovPort; textureSize: ovrSizei;
                                      renderViewport: ovrRecti;
-                                     uvScaleOffsetOut: array[2, ovrVector2f])
+                                     uvScaleOffsetOut: array[2, ovrVector2f]) {.cdecl, dynlib: dllname, importc: "ovrHmd_GetRenderScaleAndOffset".}
   ## Computes updated 'uvScaleOffsetOut' to be used with a distortion if render
   ## target size or viewport changes after the fact. This can be used to adjust
   ## render size every frame if desired.
 
-proc ovrHmd_GetFrameTiming*(hmd: ovrHmd; frameIndex: cuint): ovrFrameTiming
+proc ovrHmd_GetFrameTiming*(hmd: ovrHmd; frameIndex: cuint): ovrFrameTiming {.cdecl, dynlib: dllname, importc: "ovrHmd_GetFrameTiming".}
   ## Thread-safe timing function for the main thread. Caller should increment
   ## frameIndex with every frame and pass the index where applicable to
   ## functions called on the rendering thread.
 
-proc ovrHmd_BeginFrameTiming*(hmd: ovrHmd; frameIndex: cuint): ovrFrameTiming
+proc ovrHmd_BeginFrameTiming*(hmd: ovrHmd; frameIndex: cuint): ovrFrameTiming {.cdecl, dynlib: dllname, importc: "ovrHmd_BeginFrameTiming".}
   ## Called at the beginning of the frame on the rendering thread. Pass
   ## frameIndex == 0 if ovrHmd_GetFrameTiming isn't being used. Otherwise, pass
   ## the same frame index as was used for GetFrameTiming on the main thread.
 
-proc ovrHmd_EndFrameTiming*(hmd: ovrHmd)
+proc ovrHmd_EndFrameTiming*(hmd: ovrHmd) {.cdecl, dynlib: dllname, importc: "ovrHmd_EndFrameTiming".}
   ## Marks the end of client distortion rendered frame, tracking the necessary
   ## timing information. This function must be called immediately after
   ## Present/SwapBuffers + GPU sync. GPU sync is important before this call to
   ## reduce latency and ensure proper timing.
 
-proc ovrHmd_ResetFrameTiming*(hmd: ovrHmd; frameIndex: cuint)
+proc ovrHmd_ResetFrameTiming*(hmd: ovrHmd; frameIndex: cuint) {.cdecl, dynlib: dllname, importc: "ovrHmd_ResetFrameTiming".}
   ## Initializes and resets frame time tracking. This is typically not
   ## necessary, but is helpful if game changes vsync state or video mode.
   ## vsync is assumed to be on if this isn't called. Resets internal frame
@@ -649,7 +644,7 @@ proc ovrHmd_ResetFrameTiming*(hmd: ovrHmd; frameIndex: cuint)
 
 proc ovrHmd_GetEyeTimewarpMatrices*(hmd: ovrHmd; eye: ovrEyeType;
                                     renderPose: ovrPosef;
-                                    twmOut: array[2, ovrMatrix4f])
+                                    twmOut: array[2, ovrMatrix4f]) {.cdecl, dynlib: dllname, importc: "ovrHmd_GetEyeTimewarpMatrices".}
   ## Computes timewarp matrices used by distortion mesh shader, these are used
   ## to adjust for head orientation change since the last call to
   ## ovrHmd_GetEyePoses when rendering this eye.
@@ -660,43 +655,43 @@ proc ovrHmd_GetEyeTimewarpMatrices*(hmd: ovrHmd; eye: ovrEyeType;
 
 proc ovrHmd_GetEyeTimewarpMatricesDebug*(hmd: ovrHmd; eye: ovrEyeType;
     renderPose: ovrPosef; twmOut: array[2, ovrMatrix4f]; 
-    debugTimingOffsetInSeconds: cdouble)
+    debugTimingOffsetInSeconds: cdouble) {.cdecl, dynlib: dllname, importc: "ovrHmd_GetEyeTimewarpMatricesDebug".}
 
 
 # Stateless math setup functions ###############################################
 
 proc ovrMatrix4f_Projection*(fov: ovrFovPort; znear: cfloat; zfar: cfloat;
-                              rightHanded: ovrBool): ovrMatrix4f
+                              rightHanded: ovrBool): ovrMatrix4f {.cdecl, dynlib: dllname, importc: "ovrMatrix4f_Projection".}
   ## Used to generate projection from ovrEyeDesc::Fov.
 
 proc ovrMatrix4f_OrthoSubProjection*(projection: ovrMatrix4f; 
                                       orthoScale: ovrVector2f; 
                                       orthoDistance: cfloat; 
-                                      hmdToEyeViewOffsetX: cfloat): ovrMatrix4f
+                                      hmdToEyeViewOffsetX: cfloat): ovrMatrix4f {.cdecl, dynlib: dllname, importc: "ovrMatrix4f_OrthoSubProjection".}
   ## Used for 2D rendering, Y is down.
   ## orthoScale = 1.0f / pixelsPerTanAngleAtCenter
   ## orthoDistance = distance from camera, such as 0.8m
 
-proc ovr_GetTimeInSeconds*(): cdouble
+proc ovr_GetTimeInSeconds*(): cdouble {.cdecl, dynlib: dllname, importc: "ovr_GetTimeInSeconds".}
   ## Returns global, absolute high-resolution time in seconds. This is the same
   ## value as used in sensor messages.
 
-proc ovr_WaitTillTime*(absTime: cdouble): cdouble
+proc ovr_WaitTillTime*(absTime: cdouble): cdouble {.cdecl, dynlib: dllname, importc: "ovr_WaitTillTime".}
   ## Waits until the specified absolute time.
 
 
 # Latency Test interface #######################################################
 
-proc ovrHmd_ProcessLatencyTest*(hmd: ovrHmd; rgbColorOut: array[3, cuchar]): ovrBool
+proc ovrHmd_ProcessLatencyTest*(hmd: ovrHmd; rgbColorOut: array[3, cuchar]): ovrBool {.cdecl, dynlib: dllname, importc: "ovrHmd_ProcessLatencyTest".}
   ## Does latency test processing and returns 'TRUE' if specified rgb color
   ## should be used to clear the screen.
 
-proc ovrHmd_GetLatencyTestResult*(hmd: ovrHmd): cstring
+proc ovrHmd_GetLatencyTestResult*(hmd: ovrHmd): cstring {.cdecl, dynlib: dllname, importc: "ovrHmd_GetLatencyTestResult".}
   ## Returns non-null string once with latency test result, when it is
   ## available. Buffer is valid until next call.
 
 proc ovrHmd_GetLatencyTest2DrawColor*(hmddesc: ovrHmd;
-                                      rgbColorOut: array[3, cuchar]): ovrBool
+                                      rgbColorOut: array[3, cuchar]): ovrBool {.cdecl, dynlib: dllname, importc: "ovrHmd_GetLatencyTest2DrawColor".}
   ## Returns the latency testing color in rgbColorOut to render when using a DK2
   ## Returns false if this feature is disabled or not-applicable (e.g. DK1)
 
@@ -715,7 +710,7 @@ type
     DismissibleTime*: cdouble ## Earliest absolute time when the warning can be dismissed. May be a time in the past.
 
 
-proc ovrHmd_GetHSWDisplayState*(hmd: ovrHmd; hasWarningState: ptr ovrHSWDisplayState)
+proc ovrHmd_GetHSWDisplayState*(hmd: ovrHmd; hasWarningState: ptr ovrHSWDisplayState) {.cdecl, dynlib: dllname, importc: "ovrHmd_GetHSWDisplayState".}
   ## Returns the current state of the HSW display. If the application is doing
   ## the rendering of the HSW display then this function serves to indicate that
   ## the warning should be currently displayed. If the application is using
@@ -739,7 +734,7 @@ proc ovrHmd_GetHSWDisplayState*(hmd: ovrHmd; hasWarningState: ptr ovrHSWDisplayS
   ##        HSWDisplayCurrentlyDisplayed = true;
   ##    }
 
-proc ovrHmd_DismissHSWDisplay*(hmd: ovrHmd): ovrBool
+proc ovrHmd_DismissHSWDisplay*(hmd: ovrHmd): ovrBool {.cdecl, dynlib: dllname, importc: "ovrHmd_DismissHSWDisplay".}
   ## Dismisses the HSW display if the warning is dismissible and the earliest
   ## dismissal time has occurred. Returns true if the display is valid and could
   ## be dismissed. The application should recognize that the HSW display is
@@ -761,54 +756,54 @@ proc ovrHmd_DismissHSWDisplay*(hmd: ovrHmd): ovrBool
   ##        }
   ##    }
 
-proc ovrHmd_GetBool*(hmd: ovrHmd; propertyName: cstring; defaultVal: ovrBool): ovrBool
+proc ovrHmd_GetBool*(hmd: ovrHmd; propertyName: cstring; defaultVal: ovrBool): ovrBool {.cdecl, dynlib: dllname, importc: "ovrHmd_GetBool".}
   ## Get boolean property. Returns first element if property is a boolean array.
   ## Returns defaultValue if property doesn't exist.
 
-proc ovrHmd_SetBool*(hmd: ovrHmd; propertyName: cstring; value: ovrBool): ovrBool
+proc ovrHmd_SetBool*(hmd: ovrHmd; propertyName: cstring; value: ovrBool): ovrBool {.cdecl, dynlib: dllname, importc: "ovrHmd_SetBool".}
   ## Modify bool property; false if property doesn't exist or is readonly.
 
-proc ovrHmd_GetInt*(hmd: ovrHmd; propertyName: cstring; defaultVal: cint): cint
+proc ovrHmd_GetInt*(hmd: ovrHmd; propertyName: cstring; defaultVal: cint): cint {.cdecl, dynlib: dllname, importc: "ovrHmd_GetInt".}
   ## Get integer property. Returns first element if property is an integer array.
   ## Returns defaultValue if property doesn't exist.
 
-proc ovrHmd_SetInt*(hmd: ovrHmd; propertyName: cstring; value: cint): ovrBool
+proc ovrHmd_SetInt*(hmd: ovrHmd; propertyName: cstring; value: cint): ovrBool {.cdecl, dynlib: dllname, importc: "ovrHmd_SetInt".}
   ## Modify integer property; false if property doesn't exist or is readonly.
 
-proc ovrHmd_GetFloat*(hmd: ovrHmd; propertyName: cstring; defaultVal: cfloat): cfloat
+proc ovrHmd_GetFloat*(hmd: ovrHmd; propertyName: cstring; defaultVal: cfloat): cfloat {.cdecl, dynlib: dllname, importc: "ovrHmd_GetFloat".}
   ## Get float property. Returns first element if property is a float array.
   ## Returns defaultValue if property doesn't exist.
 
-proc ovrHmd_SetFloat*(hmd: ovrHmd; propertyName: cstring; value: cfloat): ovrBool
+proc ovrHmd_SetFloat*(hmd: ovrHmd; propertyName: cstring; value: cfloat): ovrBool {.cdecl, dynlib: dllname, importc: "ovrHmd_SetFloat".}
   ## Modify float property; false if property doesn't exist or is readonly.
 
 proc ovrHmd_GetFloatArray*(hmd: ovrHmd; propertyName: cstring;
-                            values: ptr cfloat; arraySize: cuint): cuint
+                            values: ptr cfloat; arraySize: cuint): cuint {.cdecl, dynlib: dllname, importc: "ovrHmd_GetFloatArray".}
   ## Get float[] property. Returns the number of elements filled in, 0 if
   ## property doesn't exist. Maximum of arraySize elements will be written.
 
 proc ovrHmd_SetFloatArray*(hmd: ovrHmd; propertyName: cstring;
-                            values: ptr cfloat; arraySize: cuint): ovrBool
+                            values: ptr cfloat; arraySize: cuint): ovrBool {.cdecl, dynlib: dllname, importc: "ovrHmd_SetFloatArray".}
   ## Modify float[] property; false if property doesn't exist or is readonly.
 
-proc ovrHmd_GetString*(hmd: ovrHmd; propertyName: cstring; defaultVal: cstring): cstring
+proc ovrHmd_GetString*(hmd: ovrHmd; propertyName: cstring; defaultVal: cstring): cstring {.cdecl, dynlib: dllname, importc: "ovrHmd_GetString".}
   ## Get string property. Returns first element if property is a string array.
   ## Returns defaultValue if property doesn't exist.
   ## String memory is guaranteed to exist until next call to GetString or
   ## GetStringArray, or HMD is destroyed.
 
-proc ovrHmd_SetString*(hmddesc: ovrHmd; propertyName: cstring; value: cstring): ovrBool
+proc ovrHmd_SetString*(hmddesc: ovrHmd; propertyName: cstring; value: cstring): ovrBool {.cdecl, dynlib: dllname, importc: "ovrHmd_SetString".}
   ## Set string property
 
 
 # Logging ######################################################################
 
-proc ovrHmd_StartPerfLog*(hmd: ovrHmd; fileName: cstring; userData1: cstring): ovrBool
+proc ovrHmd_StartPerfLog*(hmd: ovrHmd; fileName: cstring; userData1: cstring): ovrBool {.cdecl, dynlib: dllname, importc: "ovrHmd_StartPerfLog".}
   ## Start performance logging. guid is optional and if included is written with
   ## each file entry. If called while logging is already active with the same
   ## filename, only the guid will be updated If called while logging is already
   ## active with a different filename, ovrHmd_StopPerfLog() will be called,
   ## followed by ovrHmd_StartPerfLog()
 
-proc ovrHmd_StopPerfLog*(hmd: ovrHmd): ovrBool
+proc ovrHmd_StopPerfLog*(hmd: ovrHmd): ovrBool {.cdecl, dynlib: dllname, importc: "ovrHmd_StopPerfLog".}
   ## Stop performance logging.
