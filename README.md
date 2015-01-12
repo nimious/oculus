@@ -44,13 +44,15 @@ TODO
 
 The Windows version of the Oculus SDK currently only includes static libraries
 for use in Visual Studio. You need to acquire DLLs for libovr before you can
-compile io-oculus. The easiest way is to download [JSPenguin's precompiled
-DLLs](https://jspenguin.org/software/ovrsdk/) and rename the files to
-libovr.dll, libovrd.dll, libovr64.dll or libovr64d.dll depending on which
-configurations you wish to build for (32- or 64-bit, debug or release).
+compile io-oculus.
 
-Another option is to clone [jherico's modified Oculus SDK]
-(https://github.com/jherico/OculusSDK) on GitHub and build the DLLs yourself.
+The easiest way is to download [JSPenguin's precompiled DLLs]
+(https://jspenguin.org/software/ovrsdk/) and rename the files to libovr.dll,
+libovrd.dll, libovr64.dll or libovr64d.dll depending on which configurations you
+wish to build for (32- or 64-bit, debug or release).
+
+You can also clone [jherico's modified Oculus SDK]
+(https://github.com/jherico/OculusSDK) from GitHub and build the DLLs yourself.
 
 
 ## Dependencies
