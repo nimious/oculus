@@ -33,8 +33,8 @@ it may already have pre-compiled binaries for both the Daemon and the SDK. For
 example, on ArchLinux the driver, udev rules and SDK are available in AUR (see
 [ArchWiki](https://wiki.archlinux.org/index.php/Oculus_Rift) for details).
 
-Alternatively, you can download the SDK from the Oculus developer web site and
-follow its instructions to manually build and install it.
+Alternatively, you can download and install the SDK from the Oculus developer
+web site.
 
 ### Mac OSX
 
@@ -43,15 +43,14 @@ TODO
 ### Windows
 
 The Windows version of the Oculus SDK currently only includes static libraries
-for use in Visual Studio. You will have to acquire DLLs for libovr before you
-can compile io-oculus. The easiest way is to download [JSPenguin's precompiled
+for use in Visual Studio. You need to acquire DLLs for libovr before you can
+compile io-oculus. The easiest way is to download [JSPenguin's precompiled
 DLLs](https://jspenguin.org/software/ovrsdk/) and rename the files to
-libovr.dll, libovrd.dll, libovr64.dll and/or libovr64d.dll depending on
-whether you build for 32- or 64-bit, and debug or release configuration.
+libovr.dll, libovrd.dll, libovr64.dll or libovr64d.dll depending on which
+configurations you wish to build for (32- or 64-bit, debug or release).
 
 Another option is to clone [jherico's modified Oculus SDK]
-(https://github.com/jherico/OculusSDK) from GitHub and build the DLLs yourself
-in Visual Studio or Visual Studio Express.
+(https://github.com/jherico/OculusSDK) on GitHub and build the DLLs yourself.
 
 
 ## Dependencies
