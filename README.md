@@ -15,8 +15,8 @@ tracking devices, such as the Rift, DK1, DK2 and GearVR.
 io-oculus is still under heavy development and may not fully work yet. So far,
 the following platforms have been built and tested:
 
-- ~~~Linux~~~
-- ~~~Mac OSX~~~
+- ~~Linux~~
+- ~~Mac OSX~~
 - Windows
 
 
@@ -44,12 +44,10 @@ TODO
 
 The Windows version of the Oculus SDK currently only includes static libraries
 for use in Visual Studio. You will have to acquire DLLs for libovr before you
-can compile io-oculus.
-
-The easiest way is to download [JSPenguin's precompiled DLLs]
-(https://jspenguin.org/software/ovrsdk/) and rename the files to libovr.dll,
-libovrd.dll, libovr64.dll and/or libovr64d.dll depending on whether you wish to
-build for 32-bit or 64-bit Windows and debug or release configuration.
+can compile io-oculus. The easiest way is to download [JSPenguin's precompiled
+DLLs](https://jspenguin.org/software/ovrsdk/) and rename the files to
+libovr.dll, libovrd.dll, libovr64.dll and/or libovr64d.dll depending on
+whether you build for 32- or 64-bit, and debug or release configuration.
 
 Another option is to clone [jherico's modified Oculus SDK]
 (https://github.com/jherico/OculusSDK) from GitHub and build the DLLs yourself
