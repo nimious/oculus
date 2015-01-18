@@ -1,13 +1,15 @@
 # io-oculus
-Nim bindings for the Oculus VR SDK.
 
+Nim bindings for the Oculus VR SDK.
 ![io-spacenav Logo](logo.png)
+
 
 ## About
 
-io-oculus contains bindings to the Oculus SDK (libovr) for the Nim programming
-language. Oculus provides virtual reality head-mounted displays and positional
-tracking devices, such as the Rift, DK1, DK2 and GearVR.
+io-oculus contains bindings to the Oculus SDK (libovr) for the
+[Nim](http://nim-lang.org) programming language. Oculus provides virtual reality
+head-mounted displays and positional tracking devices, such as the DK1, DK2 and
+GearVR.
 
 
 ## Supported Platforms
@@ -48,8 +50,8 @@ compile io-oculus.
 
 The easiest way is to download [JSPenguin's precompiled DLLs]
 (https://jspenguin.org/software/ovrsdk/) and rename the files to libovr.dll,
-libovrd.dll, libovr64.dll or libovr64d.dll depending on which configurations you
-wish to build for (32- or 64-bit, debug or release).
+libovrd.dll, libovr64.dll or libovr64d.dll, depending on which configurations
+you wish to build for (32- or 64-bit, debug or release).
 
 You can also clone [jherico's modified Oculus SDK]
 (https://github.com/jherico/OculusSDK) from GitHub and build the DLLs yourself.

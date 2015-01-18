@@ -25,6 +25,8 @@ when defined(windows):
       const dllname = "libovrd.dll"
     else:
       const dllname = "libovr.dll"
+elif defined(linux):
+  const dllname = "libovr.so"
 else:
   {.error: "Platform does not support libovr".}
 
