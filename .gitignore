@@ -2,7 +2,7 @@ nimcache
 .directory
 *.dll
 *.exe
-.kate*
+*.sublime*
 examples/libovr.so
 examples/ovr_details_example
 examples/ovr_logger_example

@@ -25,8 +25,8 @@ the following platforms have been built and tested:
 ## Prerequisites
 
 To compile the bindings in this package you must have **libovr**, the Oculus VR
-SDK library, installed on your computer. Users of your program also need to
-install the device drivers, which can be downloaded from the Oculus web site.
+SDK library, installed on your computer. Users of your program need to install
+the device drivers, which can be downloaded from the Oculus web site.
 
 ### Linux
 
