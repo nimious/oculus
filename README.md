@@ -1,6 +1,7 @@
 # io-oculus
 
 Nim bindings for the Oculus VR SDK.
+
 ![io-spacenav Logo](logo.png)
 
 
@@ -46,15 +47,14 @@ You need to acquire dynamic libraries for *libovr* before you can run programs
 compiled with io-oculus.
 
 At this time there are no pre-compiled libraries available online, but you can
-clone [jherico's modified Oculus SDK] (https://github.com/jherico/OculusSDK)
-from GitHub and build them yourself.
-
-*cmake* is required to compile *libovr*, and the easiest way to install it is
-either via [MacPorts](http://www.macports.org/)...
+clone [jherico's modified Oculus SDK](https://github.com/jherico/OculusSDK)
+from GitHub and build them yourself. *cmake* is required to compile *libovr*,
+and the easiest way to install it is either via
+[MacPorts](http://www.macports.org/):
 
 ```port install cmake```
 
-...or via [Homebrew](http://brew.sh/)
+or via [Homebrew](http://brew.sh/):
 
 ```brew install cmake```
 
