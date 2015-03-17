@@ -15,10 +15,11 @@ GearVR.
 ## Supported Platforms
 
 io-oculus is still under heavy development and may not fully work yet. So far,
-the following platforms have been built and tested:
+the following platforms have been built and tested with the
+**Oculus SDK 0.4.4 Beta**:
 
 - ~~Linux~~
-- ~~Mac OSX~~
+- Mac OSX
 - Windows
 
 
@@ -40,18 +41,47 @@ web site.
 
 ### Mac OSX
 
-TODO
+The Mac OSX version of the Oculus SDK currently only includes a static library.
+You need to acquire dynamic libraries for *libovr* before you can run programs
+compiled with io-oculus.
+
+At this time there are no pre-compiled libraries available online, but you can
+clone [jherico's modified Oculus SDK] (https://github.com/jherico/OculusSDK)
+from GitHub and build them yourself.
+
+*cmake* is required to compile *libovr*, and the easiest way to install it is
+either via [MacPorts](http://www.macports.org/)...
+
+```port install cmake```
+
+...or via [Homebrew](http://brew.sh/)
+
+```brew install cmake```
+
+Then acquire and compile the modified Oculus SDK as follows:
+
+```
+git clone --recursive https://github.com/jherico/OculusSDK.git
+cd OculusSDK
+mkdir .build
+cd .build
+cmake .. -G Xcode -DCMAKE_BUILD_TYPE=Release  -DBUILD_SHARED_LIBS=ON
+xcodebuild -target ovr -configuration Release
+```
+
+The *.build/output* directory should now contain a *libovr.dylib* file,
+which can be copied into your program's folder.
 
 ### Windows
 
 The Windows version of the Oculus SDK currently only includes static libraries
-for use in Visual Studio. You need to acquire DLLs for libovr before you can
-compile io-oculus.
+for use in Visual Studio. You need to acquire DLLs for *libovr* before you can
+run programs compiled with io-oculus.
 
 The easiest way is to download [JSPenguin's precompiled DLLs]
-(https://jspenguin.org/software/ovrsdk/) and rename the files to libovr.dll,
-libovrd.dll, libovr64.dll or libovr64d.dll, depending on which configurations
-you wish to build for (32- or 64-bit, debug or release).
+(https://jspenguin.org/software/ovrsdk/) and rename the files to `libovr.dll`,
+`libovrd.dll`, `libovr64.dll` or `libovr64d.dll`, depending on which
+configurations you wish to build for (32- or 64-bit, debug or release).
 
 You can also clone [jherico's modified Oculus SDK]
 (https://github.com/jherico/OculusSDK) from GitHub and build the DLLs yourself.
@@ -64,6 +94,12 @@ io-oculus does not have any dependencies to other Nim packages at this time.
 
 ## Usage
 
+Import the *ovr* module from this package to make the bindings available in your
+project:
+
+```nimrod
+import ovr
+```
 
 ## Support
 
@@ -76,5 +112,6 @@ visit the Oculus web sites below.
 
 ## References
 
-- [Oculus Homepage](https://www.oculus.com)
-- [Oculus SDK Download Page](https://developer.oculus.com/downloads/)
+* [Oculus Homepage](https://www.oculus.com)
+* [Oculus SDK Download Page](https://developer.oculus.com/downloads/)
+* [Nim Programming Language](http://nim-lang.org/)

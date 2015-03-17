@@ -8,7 +8,7 @@
 
 
 when defined(windows):
-  when defined(win64):
+  when defined(amd64):
     when defined(debug):
       const dllname = "libovr64d.dll"
     else:
@@ -20,6 +20,8 @@ when defined(windows):
       const dllname = "libovr.dll"
 elif defined(linux):
   const dllname = "libovr.so"
+elif defined(macosx):
+  const dllname = "libovr.dylib"
 else:
   {.error: "Platform does not support libovr".}
 

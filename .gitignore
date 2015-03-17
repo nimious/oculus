@@ -1,6 +1,7 @@
 nimcache
 .directory
 *.dll
+*.dylib
 *.exe
 *.sublime*
 examples/libovr.so
