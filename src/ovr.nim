@@ -23,7 +23,7 @@ elif defined(linux):
 elif defined(macosx):
   const dllname = "libovr.dylib"
 else:
-  {.error: "Platform does not support libovr".}
+  {.error: "io-oculus does not support this platform".}
 
 
 include

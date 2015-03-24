@@ -1145,15 +1145,15 @@ proc ovrHmdGetHSWDisplayState*(hmd: OvrHmd; hasWarningState:
   ## function to know when to start drawing the HSW display itself and can
   ## optionally use it in conjunction with
   ## `ovrHmdDismissHSWDisplay <#ovrHmdDismissHSWDisplay>`_ as described below.
-  ##
   ## Example usage for application-based rendering:
-  ## ::
+  ##
+  ## .. code-block:: nim
   ##   var hswDisplayCurrentlyDisplayed = false ## global or class member var
   ##   var hswDisplayState: ovrHSWDisplayState
   ##   ovrhmdGetHSWDisplayState(hmd, addr(hswDisplayState))
   ##
   ##   if hswDisplayState.Displayed && !HSWDisplayCurrentlyDisplayed
-  ##     <insert model into the scene that stays in front of the user>
+  ##     # insert model into the scene that stays in front of the user
   ##     hswWDisplayCurrentlyDisplayed = true
 
 
@@ -1171,10 +1171,9 @@ proc ovrHmdDismissHSWDisplay*(hmd: OvrHmd): OvrBool
   ## The application should recognize that the HSW display is being displayed
   ## (via `ovrHmdGetHSWDisplayState <#ovrHmdGetHSWDisplayState>`_) and if so
   ## then call this function when the appropriate user input to dismiss the
-  ## warning occurs.
+  ## warning occurs. Example usage:
   ##
-  ## Example usage:
-  ## ::
+  ## .. code-block:: nim
   ##   proc processEvent(int key)
   ##     if key == escape
   ##       var hswDisplayState: ovrHSWDisplayState

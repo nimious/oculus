@@ -2897,16 +2897,14 @@ Gets the current state of the HSW display.<dl class="docutils"><dt>hmd</dt>
 <dd>Will hold the display state</dd>
 </dl>
 <p>If the application is doing the rendering of the HSW display then this function serves to indicate that the warning should be currently displayed. If the application is using SDK-based eye rendering then the SDK by default automatically handles the drawing of the HSW display.</p>
-<p>An application that uses application-based eye rendering should use this function to know when to start drawing the HSW display itself and can optionally use it in conjunction with <a class="reference external" href="#ovrHmdDismissHSWDisplay">ovrHmdDismissHSWDisplay</a> as described below.</p>
-<p>Example usage for application-based rendering:</p>
-<pre>var hswDisplayCurrentlyDisplayed = false ## global or class member var
-var hswDisplayState: ovrHSWDisplayState
-ovrhmdGetHSWDisplayState(hmd, addr(hswDisplayState))
+<p>An application that uses application-based eye rendering should use this function to know when to start drawing the HSW display itself and can optionally use it in conjunction with <a class="reference external" href="#ovrHmdDismissHSWDisplay">ovrHmdDismissHSWDisplay</a> as described below. Example usage for application-based rendering:</p>
+<pre><span class="Keyword">var</span> <span class="Identifier">hswDisplayCurrentlyDisplayed</span> <span class="Operator">=</span> <span class="Identifier">false</span> <span class="Comment">## global or class member var</span>
+<span class="Keyword">var</span> <span class="Identifier">hswDisplayState</span><span class="Punctuation">:</span> <span class="Identifier">ovrHSWDisplayState</span>
+<span class="Identifier">ovrhmdGetHSWDisplayState</span><span class="Punctuation">(</span><span class="Identifier">hmd</span><span class="Punctuation">,</span> <span class="Keyword">addr</span><span class="Punctuation">(</span><span class="Identifier">hswDisplayState</span><span class="Punctuation">)</span><span class="Punctuation">)</span>
 
-if hswDisplayState.Displayed &amp;&amp; !HSWDisplayCurrentlyDisplayed
-  &lt;insert model into the scene that stays in front of the user&gt;
-  hswWDisplayCurrentlyDisplayed = true</pre>
-
+<span class="Keyword">if</span> <span class="Identifier">hswDisplayState</span><span class="Operator">.</span><span class="Identifier">Displayed</span> <span class="Operator">&amp;&amp;</span> <span class="Operator">!</span><span class="Identifier">HSWDisplayCurrentlyDisplayed</span>
+  <span class="Comment"># insert model into the scene that stays in front of the user</span>
+  <span class="Identifier">hswWDisplayCurrentlyDisplayed</span> <span class="Operator">=</span> <span class="Identifier">true</span></pre>
 &nbsp;&nbsp;<a
 href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1129"
 class="link-seesrc" target="_blank">Source</a>
@@ -2922,17 +2920,15 @@ Dismisses the HSW display if the warning is dismissible and the earliest dismiss
 </ul>
 </dd>
 </dl>
-<p>The application should recognize that the HSW display is being displayed (via <a class="reference external" href="#ovrHmdGetHSWDisplayState">ovrHmdGetHSWDisplayState</a>) and if so then call this function when the appropriate user input to dismiss the warning occurs.</p>
-<p>Example usage:</p>
-<pre>proc processEvent(int key)
-  if key == escape
-    var hswDisplayState: ovrHSWDisplayState
-    ovrhmdGetHSWDisplayState(hmd, addr(hswDisplayState));
+<p>The application should recognize that the HSW display is being displayed (via <a class="reference external" href="#ovrHmdGetHSWDisplayState">ovrHmdGetHSWDisplayState</a>) and if so then call this function when the appropriate user input to dismiss the warning occurs. Example usage:</p>
+<pre><span class="Keyword">proc</span> <span class="Identifier">processEvent</span><span class="Punctuation">(</span><span class="Identifier">int</span> <span class="Identifier">key</span><span class="Punctuation">)</span>
+  <span class="Keyword">if</span> <span class="Identifier">key</span> <span class="Operator">==</span> <span class="Identifier">escape</span>
+    <span class="Keyword">var</span> <span class="Identifier">hswDisplayState</span><span class="Punctuation">:</span> <span class="Identifier">ovrHSWDisplayState</span>
+    <span class="Identifier">ovrhmdGetHSWDisplayState</span><span class="Punctuation">(</span><span class="Identifier">hmd</span><span class="Punctuation">,</span> <span class="Keyword">addr</span><span class="Punctuation">(</span><span class="Identifier">hswDisplayState</span><span class="Punctuation">)</span><span class="Punctuation">)</span><span class="Punctuation">;</span>
     
-    if hswDisplayState.Displayed &amp;&amp; ovrhmd_DismissHSWDisplay(hmd)
-      &lt;remove model from the scene&gt;
-      hswDisplayCurrentlyDisplayed = false</pre>
-
+    <span class="Keyword">if</span> <span class="Identifier">hswDisplayState</span><span class="Operator">.</span><span class="Identifier">Displayed</span> <span class="Operator">&amp;&amp;</span> <span class="Identifier">ovrhmd_DismissHSWDisplay</span><span class="Punctuation">(</span><span class="Identifier">hmd</span><span class="Punctuation">)</span>
+      <span class="Operator">&lt;</span><span class="Identifier">remove</span> <span class="Identifier">model</span> <span class="Keyword">from</span> <span class="Identifier">the</span> <span class="Identifier">scene</span><span class="Operator">&gt;</span>
+      <span class="Identifier">hswDisplayCurrentlyDisplayed</span> <span class="Operator">=</span> <span class="Identifier">false</span></pre>
 &nbsp;&nbsp;<a
 href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1160"
 class="link-seesrc" target="_blank">Source</a>
@@ -2954,7 +2950,7 @@ Get a boolean property.<dl class="docutils"><dt>hmd</dt>
 </dl>
 
 &nbsp;&nbsp;<a
-href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1188"
+href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1187"
 class="link-seesrc" target="_blank">Source</a>
 </dd>
 <dt id="ovrHmdSetBool"><a name="ovrHmdSetBool,OvrHmd,cstring,OvrBool"></a><pre><span class="Keyword">proc</span> <span class="Identifier">ovrHmdSetBool</span><span class="Other">(</span><span class="Identifier">hmd</span><span class="Other">:</span> <span class="Identifier">OvrHmd</span><span class="Other">;</span> <span class="Identifier">propertyName</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">OvrBool</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OvrBool</span> <span class="Other">{.</span>
@@ -2974,7 +2970,7 @@ Modify a bool property.<dl class="docutils"><dt>hmd</dt>
 </dl>
 
 &nbsp;&nbsp;<a
-href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1203"
+href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1202"
 class="link-seesrc" target="_blank">Source</a>
 </dd>
 <dt id="ovrHmdGetInt"><a name="ovrHmdGetInt,OvrHmd,cstring,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">ovrHmdGetInt</span><span class="Other">(</span><span class="Identifier">hmd</span><span class="Other">:</span> <span class="Identifier">OvrHmd</span><span class="Other">;</span> <span class="Identifier">propertyName</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">defaultVal</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cint</span> <span class="Other">{.</span>
@@ -2994,7 +2990,7 @@ Get an integer property.<dl class="docutils"><dt>hmd</dt>
 </dl>
 
 &nbsp;&nbsp;<a
-href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1218"
+href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1217"
 class="link-seesrc" target="_blank">Source</a>
 </dd>
 <dt id="ovrHmdSetInt"><a name="ovrHmdSetInt,OvrHmd,cstring,cint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">ovrHmdSetInt</span><span class="Other">(</span><span class="Identifier">hmd</span><span class="Other">:</span> <span class="Identifier">OvrHmd</span><span class="Other">;</span> <span class="Identifier">propertyName</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">cint</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OvrBool</span> <span class="Other">{.</span>
@@ -3014,7 +3010,7 @@ Modify an integer property.<dl class="docutils"><dt>hmd</dt>
 </dl>
 
 &nbsp;&nbsp;<a
-href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1233"
+href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1232"
 class="link-seesrc" target="_blank">Source</a>
 </dd>
 <dt id="ovrHmdGetFloat"><a name="ovrHmdGetFloat,OvrHmd,cstring,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">ovrHmdGetFloat</span><span class="Other">(</span><span class="Identifier">hmd</span><span class="Other">:</span> <span class="Identifier">OvrHmd</span><span class="Other">;</span> <span class="Identifier">propertyName</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">defaultVal</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cfloat</span> <span class="Other">{.</span>
@@ -3034,7 +3030,7 @@ Get a float property.<dl class="docutils"><dt>hmd</dt>
 </dl>
 
 &nbsp;&nbsp;<a
-href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1248"
+href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1247"
 class="link-seesrc" target="_blank">Source</a>
 </dd>
 <dt id="ovrHmdSetFloat"><a name="ovrHmdSetFloat,OvrHmd,cstring,cfloat"></a><pre><span class="Keyword">proc</span> <span class="Identifier">ovrHmdSetFloat</span><span class="Other">(</span><span class="Identifier">hmd</span><span class="Other">:</span> <span class="Identifier">OvrHmd</span><span class="Other">;</span> <span class="Identifier">propertyName</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">cfloat</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OvrBool</span> <span class="Other">{.</span>
@@ -3054,7 +3050,7 @@ Modify a <cite>float</cite> property.<dl class="docutils"><dt>hmd</dt>
 </dl>
 
 &nbsp;&nbsp;<a
-href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1263"
+href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1262"
 class="link-seesrc" target="_blank">Source</a>
 </dd>
 <dt id="ovrHmdGetFloatArray"><a name="ovrHmdGetFloatArray,OvrHmd,cstring,ptr.cfloat,cuint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">ovrHmdGetFloatArray</span><span class="Other">(</span><span class="Identifier">hmd</span><span class="Other">:</span> <span class="Identifier">OvrHmd</span><span class="Other">;</span> <span class="Identifier">propertyName</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">values</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">cfloat</span><span class="Other">;</span> 
@@ -3076,7 +3072,7 @@ Get a <cite>float[]</cite> property.<dl class="docutils"><dt>hmd</dt>
 <p>A maximum of <cite>arraySize</cite> elements will be written.</p>
 
 &nbsp;&nbsp;<a
-href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1278"
+href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1277"
 class="link-seesrc" target="_blank">Source</a>
 </dd>
 <dt id="ovrHmdSetFloatArray"><a name="ovrHmdSetFloatArray,OvrHmd,cstring,ptr.cfloat,cuint"></a><pre><span class="Keyword">proc</span> <span class="Identifier">ovrHmdSetFloatArray</span><span class="Other">(</span><span class="Identifier">hmd</span><span class="Other">:</span> <span class="Identifier">OvrHmd</span><span class="Other">;</span> <span class="Identifier">propertyName</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">values</span><span class="Other">:</span> <span class="Keyword">ptr</span> <span class="Identifier">cfloat</span><span class="Other">;</span> 
@@ -3097,7 +3093,7 @@ Modify a <cite>float[]</cite> property.<dl class="docutils"><dt>hmd</dt>
 </dl>
 
 &nbsp;&nbsp;<a
-href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1296"
+href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1295"
 class="link-seesrc" target="_blank">Source</a>
 </dd>
 <dt id="ovrHmdGetString"><a name="ovrHmdGetString,OvrHmd,cstring,cstring"></a><pre><span class="Keyword">proc</span> <span class="Identifier">ovrHmdGetString</span><span class="Other">(</span><span class="Identifier">hmd</span><span class="Other">:</span> <span class="Identifier">OvrHmd</span><span class="Other">;</span> <span class="Identifier">propertyName</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">defaultVal</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">cstring</span> <span class="Other">{.</span>
@@ -3116,7 +3112,7 @@ Get string property.<dl class="docutils"><dt>hmd</dt>
 <p>String memory is guaranteed to exist until next call to <a class="reference external" href="#ovrHmdGetString">ovrHmdGetString</a> or <a class="reference external" href="#ovrHmdGetStringArray">ovrHmdGetStringArray</a>, or HMD is destroyed.</p>
 
 &nbsp;&nbsp;<a
-href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1312"
+href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1311"
 class="link-seesrc" target="_blank">Source</a>
 </dd>
 <dt id="ovrHmdSetString"><a name="ovrHmdSetString,OvrHmd,cstring,cstring"></a><pre><span class="Keyword">proc</span> <span class="Identifier">ovrHmdSetString</span><span class="Other">(</span><span class="Identifier">hmddesc</span><span class="Other">:</span> <span class="Identifier">OvrHmd</span><span class="Other">;</span> <span class="Identifier">propertyName</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">value</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OvrBool</span> <span class="Other">{.</span>
@@ -3124,7 +3120,7 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 Set string property
 &nbsp;&nbsp;<a
-href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1329"
+href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1328"
 class="link-seesrc" target="_blank">Source</a>
 </dd>
 <dt id="ovrHmdStartPerfLog"><a name="ovrHmdStartPerfLog,OvrHmd,cstring,cstring"></a><pre><span class="Keyword">proc</span> <span class="Identifier">ovrHmdStartPerfLog</span><span class="Other">(</span><span class="Identifier">hmd</span><span class="Other">:</span> <span class="Identifier">OvrHmd</span><span class="Other">;</span> <span class="Identifier">fileName</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">;</span> <span class="Identifier">userData1</span><span class="Other">:</span> <span class="Identifier">cstring</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OvrBool</span> <span class="Other">{.</span>
@@ -3145,7 +3141,7 @@ Start performance logging.<dl class="docutils"><dt>hmd</dt>
 <p>If called while logging is already active with the same filename, only the guid will be updated. If called while logging is already active with a different filename, <a class="reference external" href="#ovrHmdStopPerfLog">ovrHmdStopPerfLog</a> will be called, followed by <a class="reference external" href="#ovrHmdStartPerfLog">ovrHmdStartPerfLog</a>.</p>
 
 &nbsp;&nbsp;<a
-href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1336"
+href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1335"
 class="link-seesrc" target="_blank">Source</a>
 </dd>
 <dt id="ovrHmdStopPerfLog"><a name="ovrHmdStopPerfLog,OvrHmd"></a><pre><span class="Keyword">proc</span> <span class="Identifier">ovrHmdStopPerfLog</span><span class="Other">(</span><span class="Identifier">hmd</span><span class="Other">:</span> <span class="Identifier">OvrHmd</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">OvrBool</span> <span class="Other">{.</span><span class="Identifier">cdecl</span><span class="Other">,</span> <span class="Identifier">dynlib</span><span class="Other">:</span> <span class="Identifier">dllname</span><span class="Other">,</span> 
@@ -3153,7 +3149,7 @@ class="link-seesrc" target="_blank">Source</a>
 <dd>
 Stop performance logging.
 &nbsp;&nbsp;<a
-href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1357"
+href="https://github.com/nimious/io-oculus/tree/master/src/ovrcapi.nim#L1356"
 class="link-seesrc" target="_blank">Source</a>
 </dd>
 
@@ -3166,7 +3162,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small>Made with Nim. Generated: 2015-01-31 00:02:24 UTC</small>
+        <small>Made with Nim. Generated: 2015-03-23 20:29:39 UTC</small>
       </div>
     </div>
   </div>

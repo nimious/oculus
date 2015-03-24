@@ -2,7 +2,7 @@
 
 Nim bindings for the Oculus VR SDK.
 
-![io-spacenav Logo](logo.png)
+![io-oculus Logo](logo.png)
 
 
 ## About
@@ -114,4 +114,5 @@ visit the Oculus web sites below.
 
 * [Oculus Homepage](https://www.oculus.com)
 * [Oculus SDK Download Page](https://developer.oculus.com/downloads/)
+* [Oculus SDK 0.4.4 Developer Guide](http://static.oculus.com/sdk-downloads/documents/Oculus_Developer_Guide_0.4.4.pdf)
 * [Nim Programming Language](http://nim-lang.org/)

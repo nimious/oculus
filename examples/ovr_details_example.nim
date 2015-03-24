@@ -4,9 +4,7 @@
 ## See the file LICENSE included in this distribution for licensing details.
 ## GitHub pull requests are encouraged. (c) 2015 Headcrash Industries LLC.
 
-import
-  ovr,
-  unsigned
+import ovr, unsigned
 
 
 template maskSet(value, mask: cuint): bool = (value and mask) != 0
