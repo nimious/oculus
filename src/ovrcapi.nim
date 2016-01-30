@@ -91,29 +91,36 @@ type
 
   OvrPoseStatef* = object
     ## A full pose (rigid body) configuration with first and second derivatives.
-    thePose*: OvrPosef ## The body's position and orientation.
-    angularVelocity*: OvrVector3f ## The body's angular velocity in radians
-      ## per second.
-    linearVelocity*: OvrVector3f ## The body's velocity in meters per second.
-    angularAcceleration*: OvrVector3f ## The body's angular acceleration in
-      ## radians per second per second.
-    linearAcceleration*: OvrVector3f ## The body's acceleration in meters per
-      ## second per second.
-    timeInSeconds*: cdouble ## Absolute time of this state sample.
+    thePose*: OvrPosef
+      ## The body's position and orientation.
+    angularVelocity*: OvrVector3f
+      ## The body's angular velocity in radians per second.
+    linearVelocity*: OvrVector3f
+      ## The body's velocity in meters per second.
+    angularAcceleration*: OvrVector3f
+      ## The body's angular acceleration in radians per second per second.
+    linearAcceleration*: OvrVector3f
+      ## The body's acceleration in meters per second per second.
+    timeInSeconds*: cdouble
+      ## Absolute time of this state sample.
 
   OvrFovPort* = object
     ## Field Of View (FOV) in tangent of the angle units. As an example, for a
     ## standard 90 degree vertical FOV, we would have:
     ##
     ##  { UpTan = tan(90 degrees / 2), DownTan = tan(90 degrees / 2) }
-    upTan*: cfloat ## The tangent of the angle between the viewing vector and
-      ## the top edge of the field of view.
-    downTan*: cfloat ## The tangent of the angle between the viewing vector
-      ## and the bottom edge of the field of view.
-    leftTan*: cfloat ## The tangent of the angle between the viewing vector
-      ## and the left edge of the field of view.
-    rightTan*: cfloat ## The tangent of the angle between the viewing vector
-      ## and the right edge of the field of view.
+    upTan*: cfloat
+      ## The tangent of the angle between the viewing vector and the top edge of
+      ## the field of view.
+    downTan*: cfloat
+      ## The tangent of the angle between the viewing vector and the bottom edge
+      ## of the field of view.
+    leftTan*: cfloat
+      ## The tangent of the angle between the viewing vector and the left edge
+      ## of the field of view.
+    rightTan*: cfloat
+      ## The tangent of the angle between the viewing vector and the right edge
+      ## of the field of view.
 
 
 # HMD Types ####################################################################
@@ -121,47 +128,54 @@ type
 type
   ## Enumerates all HMD types that we support.
   OvrHmdType* {.pure, size: sizeof(cint).} = enum
-    none = 0, ## No device type.
-    dK1 = 3, ## Oculus DevKit 1.
-    dKHD = 4, ## Oculus DevKit HD.
-    dK2 = 6, ## Oculus DevKit 2.
-    other ## Unspecified device type.
+    none = 0,
+      ## No device type.
+    dK1 = 3,
+      ## Oculus DevKit 1.
+    dKHD = 4,
+      ## Oculus DevKit HD.
+    dK2 = 6,
+      ## Oculus DevKit 2.
+    other
+      ## Unspecified device type.
 
 
 # HMD Capability Bits ##########################################################
 
 # Read-only flags.
 const
-  ovrHmdCapPresent*: cuint = 0x00000001 ## The HMD is plugged in and detected
-    ## by the system.
-  ovrHmdCapAvailable*: cuint = 0x00000002 ## The HMD and its sensor are
-    ## available for ownership use, i.e. it is not already owned by another
-    ## application.
-  ovrHmdCapCaptured*: cuint = 0x00000004 ## Set to 'true' if we captured
-    ## ownership of this HMD.
+  ovrHmdCapPresent*: cuint = 0x00000001
+    ## The HMD is plugged in and detected by the system.
+  ovrHmdCapAvailable*: cuint = 0x00000002
+    ## The HMD and its sensor are available for ownership use, i.e. it is not
+    ## already owned by another application.
+  ovrHmdCapCaptured*: cuint = 0x00000004
+    ## Set to 'true' if we capt ownership of this HMD.
 
   # These flags are intended for use with the new driver display mode.
-  ovrHmdCapExtendDesktop*: cuint = 0x00000008 ## (read only) Means the
-    ## display driver is in compatibility mode.
+  ovrHmdCapExtendDesktop*: cuint = 0x00000008
+    ## (read only) Means the display driver is in compatibility mode.
 
   # Modifiable flags (through ovrHmdSetEnabledCaps).
-  ovrHmdCapDisplayOff*: cuint = 0x00000040 ## Turns off HMD screen and output
-    ## (only if 'ExtendDesktop' is off).
-  ovrHmdCapLowPersistence*: cuint = 0x00000080 ## HMD supports low
-    ## persistence mode.
-  ovrHmdCapDynamicPrediction*: cuint = 0x00000200 ## Adjust prediction
-    ## dynamically based on internally measured latency.
-  ovrHmdCapDirectPentile*: cuint = 0x00000400 ## Write directly in pentile
-    ## color mapping format
-  ovrHmdCapNoVSync*: cuint = 0x00001000 ## Support rendering without VSync
-    ## for debugging.
-  ovrHmdCapNoMirrorToWindow*: cuint = 0x00002000 ## Disables mirroring of HMD
-    ## output to the window. This may improve rendering performance slightly
-    ## (only if 'ExtendDesktop' is off).
-  ovrHmdCapService_Mask*: cuint = 0x000022F0 ## These flags are currently
-    ## passed into the service. May change without notice.
-  ovrHmdCapWritable_Mask*: cuint = 0x000032F0 ## These bits can be modified
-    ## by `ovrHmdSetEnabledCaps <#ovrHmdSetEnabledCaps>`_.
+  ovrHmdCapDisplayOff*: cuint = 0x00000040
+    ## Turns off HMD screen and output (only if 'ExtendDesktop' is off).
+  ovrHmdCapLowPersistence*: cuint = 0x00000080
+    ## HMD supports low persistence mode.
+  ovrHmdCapDynamicPrediction*: cuint = 0x00000200
+    ## Adjust prediction dynamically based on internally measured latency.
+  ovrHmdCapDirectPentile*: cuint = 0x00000400
+    ## Write directly in pentile color mapping format
+  ovrHmdCapNoVSync*: cuint = 0x00001000
+    ## Support rendering without VSync for debugging.
+  ovrHmdCapNoMirrorToWindow*: cuint = 0x00002000
+    ## Disables mirroring of HMD output to the window. This may improve
+    ## rendering performance slightly (only if 'ExtendDesktop' is off).
+  ovrHmdCapService_Mask*: cuint = 0x000022F0
+    ## These flags are currently passed into the service. May change without
+    ## notice.
+  ovrHmdCapWritable_Mask*: cuint = 0x000032F0
+    ## These bits can be modified by
+    ## `ovrHmdSetEnabledCaps <#ovrHmdSetEnabledCaps>`_.
 
 
 # Tracking Capability Bits #####################################################
@@ -184,28 +198,30 @@ const
 
 # Used with ovrHmdConfigureRendering and ovrHmdCreateDistortionMesh.
 const
-  ovrDistortionCapChromatic*: cuint = 0x00000001 ## Supports chromatic
-    ## aberration correction
-  ovrDistortionCapTimeWarp*: cuint = 0x00000002 ## Supports timewarp
-  ovrDistortionCapVignette*: cuint = 0x00000008 ## Supports vignetting around
-    ## the edges of the view
-  ovrDistortionCapNoRestore*: cuint = 0x00000010 ## Do not save and restore
-    ## the graphics and compute state when rendering distortion
-  ovrDistortionCapFlipInput*: cuint = 0x00000020 ## Flip the vertical texture
-    ## coordinate of input images
-  ovrDistortionCapSRGB*: cuint = 0x00000040 ## Assume input images are in
-    ## sRGB gamma-corrected color space
-  ovrDistortionCapOverdrive*: cuint = 0x00000080 ## Overdrive brightness
-    ## transitions to reduce artifacts on DK2+ displays
-  ovrDistortionCapHqDistortion*: cuint = 0x00000100 ## High-quality sampling
-    ## of distortion buffer for anti-aliasing
-  ovrDistortionCapLinuxDevFullscreen*: cuint = 0x00000200 ## Indicates window
-    ## is fullscreen on a device when set. The SDK will automatically apply
-    ## distortion mesh rotation if needed
-  ovrDistortionCapComputeShader*: cuint = 0x00000400 ## Using compute shader
-    ## (DX11+ only)
-  ovrDistortionCapProfileNoTimewarpSpinWaits*: cuint = 0x00010000  ## Use
-    ## when profiling with timewarp to remove false positives
+  ovrDistortionCapChromatic*: cuint = 0x00000001
+    ## Supports chromatic aberration correction
+  ovrDistortionCapTimeWarp*: cuint = 0x00000002
+    ## Supports timewarp
+  ovrDistortionCapVignette*: cuint = 0x00000008
+    ## Supports vignetting around the edges of the view
+  ovrDistortionCapNoRestore*: cuint = 0x00000010
+    ## Do not save and restore the graphics and compute state when rendering
+    ## distortion
+  ovrDistortionCapFlipInput*: cuint = 0x00000020
+    ## Flip the vertical texture coordinate of input images
+  ovrDistortionCapSRGB*: cuint = 0x00000040
+    ## Assume input images are in sRGB gamma-corrected color space
+  ovrDistortionCapOverdrive*: cuint = 0x00000080
+    ## Overdrive brightness transitions to reduce artifacts on DK2+ displays
+  ovrDistortionCapHqDistortion*: cuint = 0x00000100
+    ## High-quality sampling of distortion buffer for anti-aliasing
+  ovrDistortionCapLinuxDevFullscreen*: cuint = 0x00000200
+    ## Indicates window is fullscreen on a device when set. The SDK will
+    ## automatically apply distortion mesh rotation if needed
+  ovrDistortionCapComputeShader*: cuint = 0x00000400
+    ## Using compute shader (DX11+ only)
+  ovrDistortionCapProfileNoTimewarpSpinWaits*: cuint = 0x00010000
+    ## Use when profiling with timewarp to remove false positives
 
 
 # Distortion Capability Bits ###################################################
@@ -227,60 +243,72 @@ type
 
   OvrHmdDesc* = object
     ## This is a complete descriptor of the HMD.
-    handle*: ptr OvrHmdStruct ## Internal handle of this HMD
-    hmdType*: OvrHmdType ## This HMD's type
-    productName*: cstring ## Name string describing the product
-    manufacturer*: cstring ## Name string describing the manufacturer
-    vendorId*: cshort ## HID Vendor of the device
-    productId*: cshort ## ProductId of the device
+    handle*: ptr OvrHmdStruct
+      ## Internal handle of this HMD
+    hmdType*: OvrHmdType
+      ## This HMD's type
+    productName*: cstring
+      ## Name string describing the product
+    manufacturer*: cstring
+      ## Name string describing the manufacturer
+    vendorId*: cshort
+      ## HID Vendor of the device
+    productId*: cshort
+      ## ProductId of the device
     serialNumber*: array[24, char] ## Sensor (and display) serial number
-    firmwareMajor*: cshort ## Sensor firmware version (major)
-    firmwareMinor*: cshort ## Sensor firmware version (minor)
-    cameraFrustumHFovInRadians*: cfloat ## External tracking camera frustum
+    firmwareMajor*: cshort
+      ## Sensor firmware version (major)
+    firmwareMinor*: cshort
+      ## Sensor firmware version (minor)
+    cameraFrustumHFovInRadians*: cfloat
+      ## External tracking camera frustum dimensions (if present)
+    cameraFrustumVFovInRadians*: cfloat
+      ## External tracking camera frustum
       ## dimensions (if present)
-    cameraFrustumVFovInRadians*: cfloat ## External tracking camera frustum
+    cameraFrustumNearZInMeters*: cfloat
+      ## External tracking camera frustum
       ## dimensions (if present)
-    cameraFrustumNearZInMeters*: cfloat ## External tracking camera frustum
-      ## dimensions (if present)
-    cameraFrustumFarZInMeters*: cfloat ## External tracking camera frustum
-      ## dimensions (if present)
-    hmdCaps*: cuint ## Capability bits described by ovrHmdCaps
-    trackingCaps*: cuint ## Capability bits described by ovrTrackingCaps
-    distortionCaps*: cuint ## Capability bits described by ovrDistortionCaps
-    defaultEyeFov*: array[OvrEyeType.count, OvrFovPort] ## Recommended optical
-      ## FOVs for the HMD
-    maxEyeFov*: array[OvrEyeType.count, OvrFovPort] ## Maximum optical FOVs for
-      ## the HMD
-    eyeRenderOrder*: array[OvrEyeType.count, OvrEyeType]  ## Preferred eye
-      ## rendering order for best performance. Can help reduce latency on
-      ## sideways-scanned screens
-    resolution*: OvrSizei ## Resolution of the full HMD screen (both eyes) in
-      ## pixels
-    windowsPos*: OvrVector2i ## Location of the application window on the
-      ## desktop (or 0,0)
-    displayDeviceName*: cstring ## Display that the HMD should present on
-    displayId*: cint ## Display identifier (Mac OSX only)
-
+    cameraFrustumFarZInMeters*: cfloat
+      ## External tracking camera frustum dimensions (if present)
+    hmdCaps*: cuint
+      ## Capability bits described by ovrHmdCaps
+    trackingCaps*: cuint
+      ## Capability bits described by ovrTrackingCaps
+    distortionCaps*: cuint
+      ## Capability bits described by ovrDistortionCaps
+    defaultEyeFov*: array[OvrEyeType.count, OvrFovPort]
+      ## Recommended optical FOVs for the HMD
+    maxEyeFov*: array[OvrEyeType.count, OvrFovPort]
+      ## Maximum optical FOVs for the HMD
+    eyeRenderOrder*: array[OvrEyeType.count, OvrEyeType]
+      ## Preferred eye rendering order for best performance. Can help reduce
+      ## latency on sideways-scanned screens
+    resolution*: OvrSizei
+      ## Resolution of the full HMD screen (both eyes) in pixels
+    windowsPos*: OvrVector2i
+      ## Location of the application window on the desktop (or 0,0)
+    displayDeviceName*: cstring
+      ## Display that the HMD should present on
+    displayId*: cint
+      ## Display identifier (Mac OSX only)
 
 type
   OvrHmd* = ptr OvrHmdDesc
     ## Pointer to HMD descriptor objects.
 
-
 type
   ## Bit flags describing the current status of sensor tracking.
   OvrStatusBits* {.pure, size: sizeof(cint).} = enum
-    orientationTracked = 0x00000001, ## Orientation is currently
-      ## tracked (in use)
-    positionTracked = 0x00000002, ## Position is currently tracked
-      ## (false if out of range)
-    cameraPoseTracked = 0x00000004, ## Camera pose is currently
-      ## tracked
-    positionConnected = 0x00000020, ## Position tracking hardware is
-      ## connected
-    hmdConnected = 0x00000080 ## HMD Display is available and
-      ## connected
-
+    orientationTracked = 0x00000001,
+      ## Orientation is currently tracked (in use)
+    positionTracked = 0x00000002,
+      ## Position is currently tracked (false if out of range)
+    cameraPoseTracked = 0x00000004,
+      ## Camera pose is currently tracked
+    positionConnected = 0x00000020,
+      ## Position tracking hardware is connected
+    hmdConnected = 0x00000080
+      ## HMD Display is available and connected
 
 type
   OvrSensorData* = object
@@ -296,59 +324,65 @@ type
   OvrTrackingState* = object
     ## Tracking state at a given absolute time (describes predicted HMD pose
     ## etc). Returned by `ovrHmdGetTrackingState <#ovrHmdGetTrackingState>`_.
-    headPose*: OvrPoseStatef ## Predicted head pose (and derivatives) at the
-      ## requested absolute time. The look-ahead interval is
+    headPose*: OvrPoseStatef
+      ## Predicted head pose (and derivatives) at the requested absolute time.
+      ## The look-ahead interval is
       ## `(HeadPose.TimeInSeconds - RawSensorData.TimeInSeconds)`.
-    cameraPose*: OvrPosef ## Current pose of the external camera (if present).
-      ## This pose includes camera tilt (roll and pitch). For a leveled
-      ## coordinate system use
+    cameraPose*: OvrPosef
+      ## Current pose of the external camera (if present). This pose includes
+      ## camera tilt (roll and pitch). For a leveled coordinate system use
       ## `LeveledCameraPose <#OvrTrackingState>`_.
-    leveledCameraPose*: OvrPosef ## Camera frame aligned with gravity. This
-      ## value includes position and yaw of the camera, but not roll and
-      ## pitch. It can be used as a reference point to render real-world
-      ## objects in the correct location.
-    rawSensorData*: OvrSensorData ## The most recent sensor data received
-      ## from the HMD.
-    statusFlags*: cuint ## Tracking status described by
-      ## `OvrStatusBits <#OvrStatusBits>`_.
+    leveledCameraPose*: OvrPosef
+      ## Camera frame aligned with gravity. This value includes position and yaw
+      ## of the camera, but not roll and pitch. It can be used as a reference
+      ## point to render real-world objects in the correct location.
+    rawSensorData*: OvrSensorData
+      ## The most recent sensor data received from the HMD.
+    statusFlags*: cuint
+      ## Tracking status described by `OvrStatusBits <#OvrStatusBits>`_.
 
     # 0.4.1
-    lastVisionProcessingTime*: cdouble  ## Measures the time from receiving
-      ## the camera frame until vision CPU processing completes.
+    lastVisionProcessingTime*: cdouble
+      ## Measures the time from receiving the camera frame until vision CPU
+      ## processing completes.
 
     # 0.4.3
-    lastVisionFrameLatency*: cdouble ## Measures the time from exposure until
-      ## the pose is available for the frame, including processing time.
-    lastCameraFrameCounter*: cuint  ## Tag the vision processing results to a
-      ## certain frame counter number.
+    lastVisionFrameLatency*: cdouble
+      ## Measures the time from exposure until the pose is available for the
+      ## frame, including processing time.
+    lastCameraFrameCounter*: cuint
+      ## Tag the vision processing results to a certain frame counter number.
 
 
   OvrFrameTiming* = object
     ## Frame timing data reported by
     ## `ovrHmdBeginFrameTiming <#ovrHmdBeginFrameTiming>`_ or
     ## `ovrHmdBeginFrame <#ovrHmdBeginFrame>`_.
-    deltaSeconds*: cfloat ## The amount of time that has passed since the
-      ## previous frame's `ThisFrameSeconds <#OvrFrameTiming>`_ value (usable
-      ## for movement scaling). This will be clamped to no more than 0.1 seconds
-      ## to prevent excessive movement after pauses due to loading or
-      ## initialization. It is generally expected that the following holds:
+    deltaSeconds*: cfloat
+      ## The amount of time that has passed since the previous frame's
+      ## `ThisFrameSeconds <#OvrFrameTiming>`_ value (usable for movement
+      ## scaling). This will be clamped to no more than 0.1 seconds to prevent
+      ## excessive movement after pauses due to loading or initialization. It is
+      ## generally expected that the following holds:
       ##     `ThisFrameSeconds < TimewarpPointSeconds < NextFrameSeconds <
       ##     EyeScanoutSeconds[EyeOrder[0]] <= ScanoutMidpointSeconds <=
       ##     EyeScanoutSeconds[EyeOrder[1]]`.
-    thisFrameSeconds*: cdouble ## Absolute time value when rendering of this
-      ## frame began or is expected to begin. Generally equal to
-      ## `NextFrameSeconds` of the previous frame. Can be used for animation
-      ## timing.
-    timewarpPointSeconds*: cdouble ## Absolute point when IMU expects to be
-      ## sampled for this frame.
-    nextFrameSeconds*: cdouble ## Absolute time when frame Present followed by
-      ## GPU Flush will finish and the next frame begins.
-    scanoutMidpointSeconds*: cdouble  ## Time when half of the screen will be
-      ## scanned out. Can be passed as an absolute time to
-      ## `ovrHmdGetTrackingState <#ovrHmdGetTrackingState>`_ to get the
-      ## predicted general orientation.
-    eyeScanoutSeconds*: array[2, cdouble]## Timing points when each eye will be
-      ## scanned out to display. Used when rendering each eye.
+    thisFrameSeconds*: cdouble
+      ## Absolute time value when rendering of this frame began or is expected
+      ## to begin. Generally equal to `NextFrameSeconds` of the previous frame.
+      ## Can be used for animation timing.
+    timewarpPointSeconds*: cdouble
+      ## Absolute point when IMU expects to be sampled for this frame.
+    nextFrameSeconds*: cdouble
+      ## Absolute time when frame Present followed by GPU Flush will finish and
+      ## the next frame begins.
+    scanoutMidpointSeconds*: cdouble
+      ## Time when half of the screen will be scanned out. Can be passed as an
+      ## absolute time to `ovrHmdGetTrackingState <#ovrHmdGetTrackingState>`_ to
+      ## get the predicted general orientation.
+    eyeScanoutSeconds*: array[2, cdouble]
+      ## Timing points when each eye will be scanned out to display. Used when
+      ## rendering each eye.
 
 
   OvrEyeRenderDesc* = object
@@ -361,13 +395,16 @@ type
     ##   the case of client rendered distortion, or
     ## - passing different values via `OvrTexture <#OvrTexture>`_ in the case of
     ##   SDK rendered distortion.
-    eye*: OvrEyeType ## The eye index this instance corresponds to
-    fov*: OvrFovPort ## The field of view
-    distortedViewport*: OvrRecti ## Distortion viewport
-    pixelsPerTanAngleAtCenter*: OvrVector2f ## How many display pixels will fit
-      ## in `tan(angle) = 1`
-    hmdToEyeViewOffset*: OvrVector3f ## Translation to be applied to view matrix
-      ## for each eye offset
+    eye*: OvrEyeType
+      ## The eye index this instance corresponds to
+    fov*: OvrFovPort
+      ## The field of view
+    distortedViewport*: OvrRecti
+      ## Distortion viewport
+    pixelsPerTanAngleAtCenter*: OvrVector2f
+      ## How many display pixels will fit in `tan(angle) = 1`
+    hmdToEyeViewOffset*: OvrVector3f
+      ## Translation to be applied to view matrix for each eye offset
 
 
 # Platform-independent Rendering Configuration #################################
@@ -391,7 +428,7 @@ type
     count
 
 
-type                        #OVR_ALIGNAS(8)
+type #OVR_ALIGNAS(8)
   OvrRenderAPIConfigHeader* = object
     ## Platform-independent part of rendering API-configuration data. It is a
     ## part of `OvrRenderAPIConfig <#OvrRenderAPIConfig>`_, passed to
@@ -400,13 +437,13 @@ type                        #OVR_ALIGNAS(8)
     backBufferSize*: OvrSizei # Previously named RTSize
     multisample*: cint
 
-type                        #OVR_ALIGNAS(8)
+type #OVR_ALIGNAS(8)
   OvrRenderAPIConfig* = object
     ## Contains platform-specific information for rendering.
     header*: OvrRenderAPIConfigHeader
     platformData*: array[8, ptr cuint]
 
-type                        #OVR_ALIGNAS(8)
+type #OVR_ALIGNAS(8)
   OvrTextureHeader* = object
     ## Platform-independent part of the eye texture descriptor. It is a part of
     ## `OvrTexture <#OvrTexture>`_, passed to
@@ -418,7 +455,7 @@ type                        #OVR_ALIGNAS(8)
     renderViewport*: OvrRecti # Pixel viewport in texture that holds eye image
     pad0*: cuint
 
-type                        #OVR_ALIGNAS(8)
+type #OVR_ALIGNAS(8)
   OvrTexture* = object
     # Contains platform-specific information about a texture
     header*: OvrTextureHeader
@@ -865,29 +902,35 @@ type
     ## converted into the engine-specific format. Some fields may be unused
     ## based on the ovrDistortionCaps flags selected. TexG and TexB, for
     ## example, are not used if chromatic correction is not requested.
-    screenPosNDC*: OvrVector2f ## [-1,+1],[-1,+1] over the entire framebuffer.
-    timeWarpFactor*: cfloat ## Lerp factor between time-warp matrices. Can be
-      ## encoded in Pos.z.
-    vignetteFactor*: cfloat ## Vignette fade factor. Can be encoded in Pos.w.
-    tanEyeAnglesR*: OvrVector2f ## The tangents of the horizontal and vertical
-      ## eye angles for the red channel.
-    tanEyeAnglesG*: OvrVector2f ## The tangents of the horizontal and vertical
-      ## eye angles for the  green channel.
-    tanEyeAnglesB*: OvrVector2f ## The tangents of the horizontal and vertical
-      ## eye angles for the blue channel.
-
+    screenPosNDC*: OvrVector2f
+      ## [-1,+1],[-1,+1] over the entire framebuffer.
+    timeWarpFactor*: cfloat
+      ## Lerp factor between time-warp matrices. Can be encoded in Pos.z.
+    vignetteFactor*: cfloat
+      ## Vignette fade factor. Can be encoded in Pos.w.
+    tanEyeAnglesR*: OvrVector2f
+      ## The tangents of the horizontal and vertical eye angles for the red
+      ## channel.
+    tanEyeAnglesG*: OvrVector2f
+      ## The tangents of the horizontal and vertical eye angles for the green
+      ## channel.
+    tanEyeAnglesB*: OvrVector2f
+      ## The tangents of the horizontal and vertical eye angles for the blue
+      ## channel.
 
   OvrDistortionMesh* = object
     ## Describes a full set of distortion mesh data, filled in by
     ## `ovrHmdCreateDistortionMesh <#ovrHmdCreateDistortionMesh>`_. Contents of
     ## this data structure, if not nil, should be freed by
     ## `ovrHmdDestroyDistortionMesh <#ovrHmdDestroyDistortionMesh>`_.
-    pVertexData*: ptr OvrDistortionVertex ## The distortion vertices
-      ## representing each point in the mesh.
-    pIndexData*: ptr cushort ## Indices for connecting the mesh vertices into
-      ## polygons.
-    vertexCount*: cuint ## The number of vertices in the mesh.
-    indexCount*: cuint ## The number of indices in the mesh.
+    pVertexData*: ptr OvrDistortionVertex
+      ## The distortion vertices representing each point in the mesh.
+    pIndexData*: ptr cushort
+      ## Indices for connecting the mesh vertices into polygons.
+    vertexCount*: cuint
+      ## The number of vertices in the mesh.
+    indexCount*: cuint
+      ## The number of indices in the mesh.
 
 
 proc ovrHmdCreateDistortionMesh*(hmd: OvrHmd; eyeType: OvrEyeType;
@@ -1116,14 +1159,17 @@ proc ovrHmdGetLatencyTest2DrawColor*(hmddesc: OvrHmd;
 type
   ovrHSWDisplayState* = object
     ## Used by ovrhmd_GetHSWDisplayState to report the current display state.
-    displayed*: OvrBool ## If true then the warning should be currently
-      ## visible and the following variables have meaning. Else there is no
-      ## warning being displayed for this application on the given HMD.
-      ## ``true`` if the Health & Safety Warning is currently displayed.
-    startTime*: cdouble ## Absolute time when the warning was first displayed.
+    displayed*: OvrBool
+      ## If true then the warning should be currently visible and the following
+      ## variables have meaning. Else there is no warning being displayed for
+      ## this application on the given HMD. ``true`` if the Health & Safety
+      ## Warning is currently displayed.
+    startTime*: cdouble
+      ## Absolute time when the warning was first displayed.
       ## See `ovrGetTimeInSeconds <#ovrGetTimeInSeconds>`_
-    dismissibleTime*: cdouble ## Earliest absolute time when the warning can
-      ## be dismissed. May be a time in the past.
+    dismissibleTime*: cdouble
+      ## Earliest absolute time when the warning can be dismissed. May be a time
+      ## in the past.
 
 
 proc ovrHmdGetHSWDisplayState*(hmd: OvrHmd; hasWarningState:
