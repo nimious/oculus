@@ -1,4 +1,4 @@
-## *io-oculus* - Nim bindings for the Oculus VR SDK.
+## *oculus* - Nim bindings for the Oculus VR SDK.
 ##
 ## This file is part of the `Nim I/O <http://nimio.us>`_ package collection.
 ## See the file LICENSE included in this distribution for licensing details.
@@ -225,7 +225,7 @@ type
     ## Dummy object for internal HMD handles.
 
 
-  OvrHmdDesc* = object 
+  OvrHmdDesc* = object
     ## This is a complete descriptor of the HMD.
     handle*: ptr OvrHmdStruct ## Internal handle of this HMD
     hmdType*: OvrHmdType ## This HMD's type
@@ -323,7 +323,7 @@ type
       ## certain frame counter number.
 
 
-  OvrFrameTiming* = object 
+  OvrFrameTiming* = object
     ## Frame timing data reported by
     ## `ovrHmdBeginFrameTiming <#ovrHmdBeginFrameTiming>`_ or
     ## `ovrHmdBeginFrame <#ovrHmdBeginFrame>`_.
@@ -351,7 +351,7 @@ type
       ## scanned out to display. Used when rendering each eye.
 
 
-  OvrEyeRenderDesc* = object 
+  OvrEyeRenderDesc* = object
     ## Rendering information for each eye. Computed by either
     ## `ovrHmdConfigureRendering <#ovrHmdConfigureRendering>`_ or
     ## `ovrHmdGetRenderDesc <#ovrHmdGetRenderDesc>`_ based on the specified FOV.
@@ -381,18 +381,18 @@ type
 # `OvrTexture <#OvrTexture>`_ and `OvrRenderAPIConfig <#OvrRenderAPIConfig>`_.
 
 type
-  OvrRenderAPIType* {.pure, size: sizeof(cint).} = enum 
+  OvrRenderAPIType* {.pure, size: sizeof(cint).} = enum
     none,
     openGl,
     androidGles, # May include extra native window pointers, etc.
     d3d9,
     d3d10,
-    d3d11, 
+    d3d11,
     count
 
 
 type                        #OVR_ALIGNAS(8)
-  OvrRenderAPIConfigHeader* = object 
+  OvrRenderAPIConfigHeader* = object
     ## Platform-independent part of rendering API-configuration data. It is a
     ## part of `OvrRenderAPIConfig <#OvrRenderAPIConfig>`_, passed to
     ## `ovrHmdConfigureXXX`.
@@ -401,13 +401,13 @@ type                        #OVR_ALIGNAS(8)
     multisample*: cint
 
 type                        #OVR_ALIGNAS(8)
-  OvrRenderAPIConfig* = object 
+  OvrRenderAPIConfig* = object
     ## Contains platform-specific information for rendering.
     header*: OvrRenderAPIConfigHeader
     platformData*: array[8, ptr cuint]
 
 type                        #OVR_ALIGNAS(8)
-  OvrTextureHeader* = object 
+  OvrTextureHeader* = object
     ## Platform-independent part of the eye texture descriptor. It is a part of
     ## `OvrTexture <#OvrTexture>`_, passed to
     ## `ovrHmdEndFrame <#ovrHmdEndFrame>`_.
@@ -419,7 +419,7 @@ type                        #OVR_ALIGNAS(8)
     pad0*: cuint
 
 type                        #OVR_ALIGNAS(8)
-  OvrTexture* = object 
+  OvrTexture* = object
     # Contains platform-specific information about a texture
     header*: OvrTextureHeader
     platformData*: array[8, ptr cuint]
@@ -767,7 +767,7 @@ proc ovrHmdGetEyePoses*(hmd: OvrHmd; frameIndex: cuint;
   hmdToEyeViewOffset: array[2, OvrVector3f]; outEyePoses: array[2, OvrPosef];
   outHmdTrackingState: ptr OvrTrackingState)
   {.cdecl, dynlib: dllname, importc: "ovrHmd_GetEyePoses".}
-  ## 
+  ##
   ## Returns predicted head pose in `outHmdTrackingState` and offset eye poses
   ## in outEyePoses as an atomic operation.
   ##
@@ -1069,7 +1069,7 @@ proc ovrMatrix4fOrthoSubProjection*(projection: OvrMatrix4f;
   ## orthoDistance
   ##   Distance from camera, such as 0.8m
   ## hmdToEyeViewOFfsetX
-  ## 
+  ##
   ## result
   ##   ?
 

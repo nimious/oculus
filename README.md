@@ -1,13 +1,13 @@
-# io-oculus
+# oculus
 
 Nim bindings for the Oculus VR SDK.
 
-![io-oculus Logo](logo.png)
+![oculus Logo](docs/logo.png)
 
 
 ## About
 
-io-oculus contains bindings to the Oculus SDK (libovr) for the
+This package contains bindings to the Oculus SDK (libovr) for the
 [Nim](http://nim-lang.org) programming language. Oculus provides virtual reality
 head-mounted displays and positional tracking devices, such as the DK1, DK2 and
 GearVR.
@@ -15,9 +15,8 @@ GearVR.
 
 ## Supported Platforms
 
-io-oculus is still under heavy development and may not fully work yet. So far,
-the following platforms have been built and tested with the
-**Oculus SDK 0.4.4 Beta**:
+This package is still under heavy development and may not fully work yet. The
+following platforms have been built and tested with the **Oculus SDK 0.4.4 Beta**:
 
 - ~~Linux~~
 - Mac OSX
@@ -44,7 +43,7 @@ web site.
 
 The Mac OSX version of the Oculus SDK currently only includes a static library.
 You need to acquire dynamic libraries for *libovr* before you can run programs
-compiled with io-oculus.
+compiled with this package.
 
 At this time there are no pre-compiled libraries available online, but you can
 clone [jherico's modified Oculus SDK](https://github.com/jherico/OculusSDK)
@@ -76,7 +75,7 @@ which can be copied into your program's folder.
 
 The Windows version of the Oculus SDK currently only includes static libraries
 for use in Visual Studio. You need to acquire DLLs for *libovr* before you can
-run programs compiled with io-oculus.
+run programs compiled with this package.
 
 The easiest way is to download [JSPenguin's precompiled DLLs]
 (https://jspenguin.org/software/ovrsdk/) and rename the files to `libovr.dll`,
@@ -89,7 +88,7 @@ You can also clone [jherico's modified Oculus SDK]
 
 ## Dependencies
 
-io-oculus does not have any dependencies to other Nim packages at this time.
+This package does not have any dependencies to other Nim packages at this time.
 
 
 ## Usage
@@ -103,8 +102,8 @@ import ovr
 
 ## Support
 
-Please [file an issue](https://github.com/nimious/io-oculus/issues), submit a
-[pull request](https://github.com/nimious/io-oculus/pulls?q=is%3Aopen+is%3Apr)
+Please [file an issue](https://github.com/nimious/oculus/issues), submit a
+[pull request](https://github.com/nimious/oculus/pulls?q=is%3Aopen+is%3Apr)
 or email us at info@nimio.us if this package is out of date or contains bugs.
 For all other issues related to Oculus devices or the device driver software
 visit the Oculus web sites below.

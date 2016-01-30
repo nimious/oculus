@@ -1,4 +1,4 @@
-## *io-oculus* - Nim bindings for the Oculus VR SDK.
+## *oculus* - Nim bindings for the Oculus VR SDK.
 ##
 ## This file is part of the `Nim I/O <http://nimio.us>`_ package collection.
 ## See the file LICENSE included in this distribution for licensing details.

@@ -1,6 +1,6 @@
 [Package]
-name: "io-oculus"
-version: "0.2"
+name: "oculus"
+version: "1.0"
 author: "Gerke Max Preussner <info@nimio.us>"
 description: "Bindings for the Oculus VR SDK"
 license: "MIT"
